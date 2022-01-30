@@ -1,11 +1,5 @@
 import { Moment } from "moment";
-import React, {
-	FC,
-	createContext,
-	useCallback,
-	useContext,
-	useState,
-} from "react";
+import { FC, createContext, useCallback, useContext, useState } from "react";
 import { IAdventCalendarItem } from "../interface/advent-calendar";
 import type { TModal } from "../interface/modal";
 
@@ -33,16 +27,19 @@ export const ModalProvider: FC = ({ children }) => {
 	const [modal, setModal] = useState<TModal | null>(null);
 	const [modalOption, setModalOption] = useState<any>();
 
-	const openModal = useCallback((modal: TModal, modalOption?: any) => {
-		closeModal();
-		setModalOption(modalOption);
-		setModal(modal);
-	}, []);
-
 	const closeModal = useCallback(() => {
 		setModal(null);
 		setModalOption(null);
 	}, []);
+
+	const openModal = useCallback(
+		(modal: TModal, modalOption?: any) => {
+			closeModal();
+			setModalOption(modalOption);
+			setModal(modal);
+		},
+		[closeModal],
+	);
 
 	const openLoginModal = useCallback(() => {
 		openModal("LOGIN", {});
