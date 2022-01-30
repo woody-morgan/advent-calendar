@@ -7,6 +7,7 @@ import { useModal } from "@core/context/ModalStore";
 import { toast } from "react-toastify";
 import classNames from "classnames";
 import { useCalendar } from "@src/core/context/CalendarStore";
+import moment from "moment";
 
 interface IProps {
 	options: Moment;
@@ -26,6 +27,7 @@ interface ISecretKey {
 
 const CalendarInfoModal = ({ onClose, options }: IProps) => {
 	const selectedDate = options;
+	const isAfterToday = selectedDate.isAfter(moment());
 	const { openCalendarInfoModal, closeModal } = useModal();
 	const { addCalendarItem, getNewData } = useCalendar();
 	const [Inputs, setInputs] = useState<IInputs>({
@@ -69,7 +71,11 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 				selectedDate,
 				secretKey.key,
 			);
-			addCalendarItem(selectedDate, result);
+			addCalendarItem(selectedDate, {
+				...result,
+				title: isAfterToday ? "오픈일이 아닙니다" : result.title,
+				name: isAfterToday ? "오픈일이 아닙니다" : result.name,
+			});
 			openCalendarInfoModal(result);
 		} catch (err) {
 			getNewData();
@@ -80,6 +86,7 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 		addCalendarItem,
 		closeModal,
 		getNewData,
+		isAfterToday,
 		openCalendarInfoModal,
 		secretKey.isValid,
 		secretKey.key,

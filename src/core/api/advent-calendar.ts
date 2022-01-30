@@ -32,6 +32,22 @@ export const getCalendarByID = async (
 	}
 };
 
+export const getCalendarBySecretKey = async (
+	windowSeq: number,
+	secretKey: string,
+): Promise<IAdventCalendarItem> => {
+	const params = { secretKey: [secretKey] };
+	try {
+		const { data } = await axios.get(`advent-windows/${windowSeq}`, {
+			params,
+		});
+		return data;
+	} catch (err) {
+		toast.error("수정키를 다시 확인해주세요");
+		throw err;
+	}
+};
+
 export const createCalendar = async (
 	name: string,
 	title: string,
@@ -74,6 +90,7 @@ export const updateCalendarByID = async (
 	openDate: Moment,
 ) => {
 	const updateDate = openDate.format("YYYY-MM-DD");
+	console.log(windowSeq, title, body, secretKey, updateDate);
 	try {
 		toast.loading("업데이트 중입니다", {
 			toastId: 3,
