@@ -6,6 +6,7 @@ import classNames from "classnames";
 import moment from "moment";
 
 import {
+	getCalendarBySecretKey,
 	updateCalendarByID,
 	deleteCalendarByID,
 } from "@core/api/advent-calendar";
@@ -62,6 +63,23 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 		[pwRegex],
 	);
 
+	const handleEdit = useCallback(async () => {
+		const inputSecretKey = prompt("수정키를 입력해주세요", "");
+		if (!inputSecretKey) {
+			return;
+		}
+		const result = await getCalendarBySecretKey(
+			options.windowSeq,
+			inputSecretKey,
+		);
+		setInputs((prev) => ({
+			...prev,
+			title: result.title ?? "",
+			body: result.body ?? "",
+		}));
+		setEditable(true);
+	}, [options.windowSeq]);
+
 	const handleSubmit = useCallback(async () => {
 		const { title, body } = Inputs;
 		await updateCalendarByID(
@@ -100,11 +118,7 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 						</Button>
 					) : (
 						<>
-							<Button
-								fullWidth
-								btnStyles="secondary"
-								onClick={() => setEditable(true)}
-							>
+							<Button fullWidth btnStyles="secondary" onClick={handleEdit}>
 								수정하기
 							</Button>
 							<Button
@@ -119,7 +133,7 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 				</>
 			);
 		};
-	}, [handleCalendarDelete, handleSubmit, isEditable]);
+	}, [handleCalendarDelete, handleEdit, handleSubmit, isEditable]);
 
 	return (
 		<div className={styles.cnt}>
