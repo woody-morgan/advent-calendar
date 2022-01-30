@@ -141,7 +141,7 @@ export const Calendar: FC<Partial<DayPickerSingleDateControllerShape>> = (
 	return (
 		<DayPickerSingleDateController
 			{...props}
-			initialVisibleMonth={() => moment()}
+			initialVisibleMonth={() => moment("2022-02-01")}
 			isOutsideRange={(day) =>
 				!isInclusivelyAfterDay(
 					day,
