@@ -26,8 +26,8 @@ interface ISecretKey {
 
 const CalendarInfoModal = ({ onClose, options }: IProps) => {
 	const selectedDate = options;
-	const { openCalendarInfoModal } = useModal();
-	const { addCalendarItem } = useCalendar();
+	const { openCalendarInfoModal, closeModal } = useModal();
+	const { addCalendarItem, getNewData } = useCalendar();
 	const [Inputs, setInputs] = useState<IInputs>({
 		name: "",
 		title: "",
@@ -61,18 +61,25 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 			return;
 		}
 		const { name, title, body } = Inputs;
-		const result = await createCalendar(
-			name,
-			title,
-			body,
-			selectedDate,
-			secretKey.key,
-		);
-		addCalendarItem(selectedDate, result);
-		openCalendarInfoModal(result);
+		try {
+			const result = await createCalendar(
+				name,
+				title,
+				body,
+				selectedDate,
+				secretKey.key,
+			);
+			addCalendarItem(selectedDate, result);
+			openCalendarInfoModal(result);
+		} catch (err) {
+			getNewData();
+			closeModal();
+		}
 	}, [
 		Inputs,
 		addCalendarItem,
+		closeModal,
+		getNewData,
 		openCalendarInfoModal,
 		secretKey.isValid,
 		secretKey.key,
@@ -84,11 +91,21 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 			<div className={styles.item}>{selectedDate.format("YYYY-MM-DD")}</div>
 			<div className={styles.item}>
 				<label htmlFor="name">작성자</label>
-				<input id="name" value={Inputs.name} onChange={handleInput} />
+				<input
+					id="name"
+					type="text"
+					value={Inputs.name}
+					onChange={handleInput}
+				/>
 			</div>
 			<div className={styles.item}>
 				<label htmlFor="title">제목</label>
-				<input id="title" value={Inputs.title} onChange={handleInput} />
+				<input
+					id="title"
+					type="text"
+					value={Inputs.title}
+					onChange={handleInput}
+				/>
 			</div>
 			<div
 				className={classNames(styles.item, {

@@ -31,7 +31,7 @@ interface ISecretKey {
 const CalendarInfoModal = ({ onClose, options }: IProps) => {
 	const selectedDate = moment(options.openDate);
 	const isAfterToday = selectedDate.isAfter(moment());
-	const { updateCalendarItem } = useCalendar();
+	const { updateCalendarItem, deleteCalendarItem } = useCalendar();
 	const { closeModal } = useModal();
 	const [Inputs, setInputs] = useState<IInputs>({
 		name: options.name ?? "",
@@ -71,6 +71,7 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 			secretKey.key,
 			selectedDate,
 		);
+
 		updateCalendarItem(selectedDate, {
 			...options,
 			title,
@@ -80,14 +81,14 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 	}, [Inputs, options, secretKey.key, selectedDate, updateCalendarItem]);
 
 	const handleCalendarDelete = useCallback(async () => {
-		// need to add secretkey
 		const inputSecretKey = prompt("수정키를 입력해주세요", "");
 		if (!inputSecretKey) {
 			return;
 		}
 		await deleteCalendarByID(options.windowSeq, inputSecretKey);
+		deleteCalendarItem(selectedDate);
 		closeModal();
-	}, [closeModal, options.windowSeq]);
+	}, [closeModal, deleteCalendarItem, options.windowSeq, selectedDate]);
 
 	const ButtonComp = useMemo(() => {
 		return () => {
