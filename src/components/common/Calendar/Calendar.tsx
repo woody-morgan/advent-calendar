@@ -40,7 +40,7 @@ export const Calendar: FC<Partial<DayPickerSingleDateControllerShape>> = (
 
 	const DaySizeMemo = useMemo(() => {
 		if (!width || width > 768) return 120;
-		else return 50;
+		else return 45;
 	}, [width]);
 
 	// Logics for Calendar Control
