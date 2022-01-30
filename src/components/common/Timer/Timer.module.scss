@@ -1,0 +1,68 @@
+@import "@styles/mixins";
+
+$color: skyblue;
+$ani-duration: var(--duration) !default;
+
+.container {
+	z-index: 10;
+	margin: 0;
+	width: 70vh;
+	height: 70vh;
+	border-radius: 50%;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+
+	// def text
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 5rem;
+	font-weight: bold;
+
+	// etc
+	background-color: rgba($color, 0.5);
+
+	@include mobile {
+		width: 90vw;
+		height: 90vw;
+	}
+}
+
+.enable_animation {
+	animation-play-state: running;
+	// animation
+	transform-origin: 50% 50%;
+	animation-name: shake;
+	animation-duration: $ani-duration;
+	animation-iteration-count: infinite;
+	animation-delay: 0.5s;
+}
+
+@keyframes shake {
+	0% {
+		transform: rotate(0deg);
+	}
+	10% {
+		transform: rotate(45deg);
+	}
+	20% {
+		transform: rotate(-45deg);
+	}
+	30% {
+		transform: rotate(30deg);
+	}
+	40% {
+		transform: rotate(-30deg);
+	}
+	50% {
+		transform: rotate(10deg);
+	}
+	60% {
+		transform: rotate(-10deg);
+	}
+	70% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}

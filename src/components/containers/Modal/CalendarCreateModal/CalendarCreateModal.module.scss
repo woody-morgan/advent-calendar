@@ -1,0 +1,42 @@
+@import "@styles/mixins";
+
+.cnt {
+  > * {
+    margin-bottom: 0.5rem;
+  }
+
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: inherit;
+  flex-direction: column;
+
+  input,
+  textarea {
+    outline: none;
+    border: 1px solid $base-color;
+  }
+
+  input {
+    height: 1.5rem;
+  }
+
+  textarea {
+    height: 6.25rem;
+    resize: none;
+  }
+
+  > * {
+    margin-bottom: 4px;
+  }
+
+  &.error {
+    input,
+    textarea {
+      outline: none;
+      border: 1px solid $input-error;
+    }
+  }
+}
