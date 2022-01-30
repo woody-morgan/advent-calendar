@@ -1,0 +1,36 @@
+@import "@styles/mixins";
+
+.container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	label {
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 23px;
+		margin-bottom: 10px;
+	}
+}
+.input {
+	@include TextEllipsis;
+	padding: 10px 20px;
+	width: 100%;
+	height: 40px;
+	border-radius: $border-radius;
+	justify-content: center;
+	font-size: 16px;
+	line-height: 19px;
+	outline: none;
+	border: 1px solid #888888;
+	&.error {
+		border: 1px solid #ff1c1c;
+	}
+}
+.error_text {
+	margin-top: 1rem;
+	font-size: 16px;
+	line-height: 19px;
+	text-decoration-line: underline;
+	color: #ff1c1c;
+}
