@@ -73,6 +73,7 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 			options.windowSeq,
 			inputSecretKey,
 		);
+		setSecretKey({ key: inputSecretKey, isValid: true });
 		setInputs((prev) => ({
 			...prev,
 			title: result.title ?? "",
