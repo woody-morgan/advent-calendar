@@ -156,6 +156,16 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 					onChange={handleInput}
 					readOnly
 				/>
+				<a
+					href={"https://wiki.zeropage.org/wiki.php/" + Inputs.name}
+					target="_blank"
+					rel="noreferrer"
+				>
+					<img
+						src="https://img.shields.io/badge/ZeroWiki-212121?style=flat-square"
+						alt="Wiki Link"
+					></img>
+				</a>
 			</div>
 			<div
 				className={classNames(styles.item, {
