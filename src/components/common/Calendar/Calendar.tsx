@@ -129,7 +129,7 @@ export const Calendar: FC<Partial<DayPickerSingleDateControllerShape>> = (
 								<div className={styles.highlighted}>
 									{day.isAfter(moment(), "day")
 										? "오픈일이 아닙니다"
-										: result?.body ?? ""}
+										: result?.title ?? ""}
 								</div>
 							</div>
 						</div>
