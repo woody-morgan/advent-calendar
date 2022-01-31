@@ -6,6 +6,7 @@ import classNames from "classnames";
 import moment from "moment";
 
 import {
+	validateSecretKey,
 	getCalendarBySecretKey,
 	updateCalendarByID,
 	deleteCalendarByID,
@@ -68,6 +69,8 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 		if (!inputSecretKey) {
 			return;
 		}
+		const isValid = await validateSecretKey(options.windowSeq, inputSecretKey);
+		if (!isValid) return;
 		const result = await getCalendarBySecretKey(
 			options.windowSeq,
 			inputSecretKey,

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Root from "./client/Root";
 import qs from "query-string";
+import "react-app-polyfill/ie11";
 import "@styles/globals.scss";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
