@@ -83,19 +83,21 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 	}, [options.windowSeq]);
 
 	const handleSubmit = useCallback(async () => {
-		const { title, body } = Inputs;
+		const { title, body, contentUrl } = Inputs;
 		await updateCalendarByID(
 			options.windowSeq,
 			title,
 			body,
 			secretKey.key,
 			selectedDate,
+			contentUrl,
 		);
 
 		updateCalendarItem(selectedDate, {
 			...options,
 			title,
 			body,
+			contentUrl,
 		});
 		setEditable(false);
 	}, [Inputs, options, secretKey.key, selectedDate, updateCalendarItem]);

@@ -73,12 +73,13 @@ export const getCalendarBySecretKey = async (
 export const createCalendar = async (
 	name: string,
 	title: string,
-	contentUrl: string,
 	body: string,
 	openDate: Moment,
 	secretKey: string,
+	contentUrl: string,
 ): Promise<IAdventCalendarItem> => {
 	const postDate = openDate.format("YYYY-MM-DD");
+	console.log(contentUrl);
 	try {
 		toast.loading("생성중입니다", {
 			toastId: 2,
@@ -89,6 +90,7 @@ export const createCalendar = async (
 			body: body,
 			openDate: postDate,
 			secretKey: secretKey,
+			contentUrl: contentUrl,
 		});
 		toast.dismiss(2);
 		toast.success("생성에 성공했습니다");
@@ -113,6 +115,7 @@ export const updateCalendarByID = async (
 	body: string,
 	secretKey: string,
 	openDate: Moment,
+	contentUrl: string,
 ) => {
 	const updateDate = openDate.format("YYYY-MM-DD");
 	try {
@@ -125,6 +128,7 @@ export const updateCalendarByID = async (
 			body: body,
 			secretKey: secretKey,
 			openDate: updateDate,
+			contentUrl: contentUrl,
 		});
 		toast.dismiss(3);
 		toast.success("성공적으로 업데이트 했습니다");
