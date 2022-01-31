@@ -73,6 +73,7 @@ export const getCalendarBySecretKey = async (
 export const createCalendar = async (
 	name: string,
 	title: string,
+	contentUrl: string,
 	body: string,
 	openDate: Moment,
 	secretKey: string,
@@ -97,6 +98,8 @@ export const createCalendar = async (
 		toast.dismiss(2);
 		if (err.response?.status === 500) {
 			toast.error("이미 생성되었습니다");
+		} else if (err.response?.status === 409) {
+			toast.error("비밀번호 형식이 맞지 않습니다");
 		} else {
 			toast.error("알 수 없는 이유로 통신에 실패했습니다");
 		}
@@ -112,7 +115,6 @@ export const updateCalendarByID = async (
 	openDate: Moment,
 ) => {
 	const updateDate = openDate.format("YYYY-MM-DD");
-	console.log(windowSeq, title, body, secretKey, updateDate);
 	try {
 		toast.loading("업데이트 중입니다", {
 			toastId: 3,
