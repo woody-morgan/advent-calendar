@@ -20,8 +20,9 @@
 		height: 1.5rem;
 	}
 	textarea {
-		height: 6.25rem;
-		resize: none;
+		height: 12rem;
+		resize: vertical;
+		max-height: 25rem;
 	}
 	> * {
 		margin-bottom: 4px;
