@@ -3,6 +3,28 @@ import type { Moment } from "moment";
 import { toast } from "react-toastify";
 import { IAdventCalendarItem } from "../interface/advent-calendar";
 
+export const validateSecretKey = async (
+	windowSeq: number,
+	secretKey: string,
+): Promise<boolean> => {
+	const params = { secretKey: [secretKey] };
+	try {
+		const { data } = await axios.get(
+			`/advent-windows/${windowSeq}/secret-key/validate`,
+			{ params },
+		);
+		if (!data) {
+			toast.error("인증에 실패했습니다");
+		} else {
+			toast.success("인증에 성공했습니다");
+		}
+		return data;
+	} catch (err) {
+		toast.error("알 수 없는 에러가 발생했습니다");
+		throw err;
+	}
+};
+
 export const getAllCalendars = async (): Promise<IAdventCalendarItem[]> => {
 	try {
 		toast.loading("로딩중", {
