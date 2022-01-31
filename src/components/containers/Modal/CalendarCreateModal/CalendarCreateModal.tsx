@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import classNames from "classnames";
 import { useCalendar } from "@src/core/context/CalendarStore";
 import { isValidPwd } from "@src/utils/check";
-import moment from "moment";
 
 interface IProps {
 	options: Moment;
@@ -29,7 +28,6 @@ interface ISecretKey {
 
 const CalendarInfoModal = ({ onClose, options }: IProps) => {
 	const selectedDate = options;
-	const isAfterToday = selectedDate.isAfter(moment());
 	const { openCalendarInfoModal, closeModal } = useModal();
 	const { addCalendarItem, getNewData } = useCalendar();
 	const [Inputs, setInputs] = useState<IInputs>({
