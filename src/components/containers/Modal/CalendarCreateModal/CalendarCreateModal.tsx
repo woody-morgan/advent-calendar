@@ -65,16 +65,16 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 			const result = await createCalendar(
 				name,
 				title,
-				contentUrl,
 				body,
 				selectedDate,
 				secretKey.key,
+				contentUrl,
 			);
 			addCalendarItem(selectedDate, {
 				...result,
 				name: result.name,
-				title: isAfterToday ? "오픈일이 아닙니다" : result.title,
-				contentUrl: isAfterToday ? "오픈일이 아닙니다" : result.contentUrl,
+				title: result.title,
+				contentUrl: result.contentUrl,
 			});
 			openCalendarInfoModal(result);
 		} catch (err) {
@@ -86,7 +86,6 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 		addCalendarItem,
 		closeModal,
 		getNewData,
-		isAfterToday,
 		openCalendarInfoModal,
 		secretKey.isValid,
 		secretKey.key,
