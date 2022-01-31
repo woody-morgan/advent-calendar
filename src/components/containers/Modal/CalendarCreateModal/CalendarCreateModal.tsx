@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { Moment } from "moment";
 import { createCalendar } from "@core/api/advent-calendar";
 import { Button } from "@components/common";
@@ -7,6 +7,7 @@ import { useModal } from "@core/context/ModalStore";
 import { toast } from "react-toastify";
 import classNames from "classnames";
 import { useCalendar } from "@src/core/context/CalendarStore";
+import { isValidPwd } from "@src/utils/check";
 import moment from "moment";
 
 interface IProps {
@@ -18,6 +19,7 @@ interface IInputs {
 	name: string;
 	title: string;
 	body: string;
+	contentUrl: string;
 }
 
 interface ISecretKey {
@@ -34,6 +36,7 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 		name: "",
 		title: "",
 		body: "",
+		contentUrl: "",
 	});
 
 	const [secretKey, setSecretKey] = useState<ISecretKey>({
@@ -41,40 +44,37 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 		isValid: false,
 	});
 
-	const pwRegex = useMemo(() => /^[A-Za-z]\w{7,14}$/, []);
-
 	const handleInput = useCallback((e) => {
 		const { id, value } = e.target;
 		setInputs((prev) => ({ ...prev, [id]: value }));
 	}, []);
 
-	const handleSecretKeyInput = useCallback(
-		(e) => {
-			const { value } = e.target;
-			const isCorrect = value.match(pwRegex);
-			setSecretKey({ key: value, isValid: isCorrect });
-		},
-		[pwRegex],
-	);
+	const handleSecretKeyInput = useCallback((e) => {
+		const { value } = e.target;
+		const isCorrect = isValidPwd(value);
+		setSecretKey({ key: value, isValid: isCorrect });
+	}, []);
 
 	const handleSubmit = useCallback(async () => {
 		if (!secretKey.isValid) {
 			toast.error("수정키는 7~16글자의 숫자,영문자 혼합이어야합니다");
 			return;
 		}
-		const { name, title, body } = Inputs;
+		const { name, title, body, contentUrl } = Inputs;
 		try {
 			const result = await createCalendar(
 				name,
 				title,
+				contentUrl,
 				body,
 				selectedDate,
 				secretKey.key,
 			);
 			addCalendarItem(selectedDate, {
 				...result,
+				name: result.name,
 				title: isAfterToday ? "오픈일이 아닙니다" : result.title,
-				name: isAfterToday ? "오픈일이 아닙니다" : result.name,
+				contentUrl: isAfterToday ? "오픈일이 아닙니다" : result.contentUrl,
 			});
 			openCalendarInfoModal(result);
 		} catch (err) {
@@ -128,9 +128,19 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 				/>
 			</div>
 			<div className={styles.item}>
+				<label htmlFor="contentUrl">블로그 주소</label>
+				<input
+					id="contentUrl"
+					type="text"
+					value={Inputs.contentUrl}
+					onChange={handleInput}
+				/>
+			</div>
+			<div className={styles.item}>
 				<label htmlFor="body">내용</label>
 				<textarea id="body" value={Inputs.body} onChange={handleInput} />
 			</div>
+
 			<Button fullWidth btnStyles="secondary" onClick={handleSubmit}>
 				제출하기
 			</Button>

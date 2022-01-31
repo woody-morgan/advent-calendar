@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Button } from "@src/components/common";
 import styles from "./CalendarInfoModal.module.scss";
 import { IAdventCalendarItem } from "@src/core/interface/advent-calendar";
@@ -13,6 +13,7 @@ import {
 } from "@core/api/advent-calendar";
 import { useCalendar } from "@src/core/context/CalendarStore";
 import { useModal } from "@src/core/context/ModalStore";
+import { isValidPwd } from "@src/utils/check";
 
 interface IProps {
 	options: IAdventCalendarItem;
@@ -23,6 +24,7 @@ interface IInputs {
 	name: string;
 	title: string;
 	body: string;
+	contentUrl: string;
 }
 
 interface ISecretKey {
@@ -39,6 +41,7 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 		name: options.name ?? "",
 		title: isAfterToday ? "오픈일이 아닙니다" : options.title ?? "",
 		body: isAfterToday ? "오픈일이 아닙니다" : options.body ?? "",
+		contentUrl: isAfterToday ? "오픈일이 아닙니다" : options.contentUrl ?? "",
 	});
 
 	const [isEditable, setEditable] = useState<boolean>(false);
@@ -48,21 +51,16 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 		isValid: false,
 	});
 
-	const pwRegex = useMemo(() => /^[A-Za-z]\w{7,14}$/, []);
-
 	const handleInput = useCallback((e) => {
 		const { id, value } = e.target;
 		setInputs((prev) => ({ ...prev, [id]: value }));
 	}, []);
 
-	const handleSecretKeyInput = useCallback(
-		(e) => {
-			const { value } = e.target;
-			const isCorrect = value.match(pwRegex);
-			setSecretKey({ key: value, isValid: isCorrect });
-		},
-		[pwRegex],
-	);
+	const handleSecretKeyInput = useCallback((e) => {
+		const { value } = e.target;
+		const isCorrect = isValidPwd(value);
+		setSecretKey({ key: value, isValid: isCorrect });
+	}, []);
 
 	const handleEdit = useCallback(async () => {
 		const inputSecretKey = prompt("수정키를 입력해주세요", "");
@@ -79,6 +77,7 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 			...prev,
 			title: result.title ?? "",
 			body: result.body ?? "",
+			contentUrl: result.contentUrl ?? "",
 		}));
 		setEditable(true);
 	}, [options.windowSeq]);
@@ -147,7 +146,13 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 				})}
 			>
 				<label htmlFor="name">작성자</label>
-				<input id="name" value={Inputs.name} onChange={handleInput} readOnly />
+				<input
+					id="name"
+					type="text"
+					value={Inputs.name}
+					onChange={handleInput}
+					readOnly
+				/>
 			</div>
 			<div
 				className={classNames(styles.item, {
@@ -157,6 +162,7 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 				<label htmlFor="title">제목</label>
 				<input
 					id="title"
+					type="text"
 					value={Inputs.title}
 					readOnly={!isEditable}
 					onChange={handleInput}
@@ -179,6 +185,32 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 					/>
 				</div>
 			)}
+			<div
+				className={classNames(styles.item, {
+					[styles.read_only]: !isEditable,
+				})}
+			>
+				<label htmlFor="contentUrl">블로그 주소</label>
+				{!isEditable ? (
+					<a
+						href={
+							isAfterToday
+								? "https://woodi97.github.io/zp-advent-calendar/"
+								: Inputs.contentUrl
+						}
+					>
+						{Inputs.contentUrl}
+					</a>
+				) : (
+					<input
+						id="contentUrl"
+						type="text"
+						value={Inputs.contentUrl}
+						readOnly={!isEditable}
+						onChange={handleInput}
+					/>
+				)}
+			</div>
 			<div
 				className={classNames(styles.item, {
 					[styles.read_only]: !isEditable,
