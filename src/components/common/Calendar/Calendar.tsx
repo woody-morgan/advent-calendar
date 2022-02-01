@@ -108,7 +108,7 @@ export const Calendar: FC<Partial<DayPickerSingleDateControllerShape>> = (
 				);
 			return (
 				<>
-					{modifiers.has("valid") && modifiers.has("highlighted-calendar") && (
+					{modifiers.has("highlighted-calendar") && (
 						<div
 							className={styles.day_cell_cnt}
 							onClick={() => handleFullDayCellClick(result)}
