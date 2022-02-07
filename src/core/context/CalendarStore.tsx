@@ -4,7 +4,7 @@ import React, {
 	useContext,
 	useState,
 	useCallback,
-	useEffect,
+	useLayoutEffect,
 } from "react";
 import { IAdventCalendarItem } from "../interface/advent-calendar";
 import { getAllCalendars } from "@core/api/advent-calendar";
@@ -72,7 +72,7 @@ export const CalendarProvider: FC = ({ children }) => {
 		});
 	}, []);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		getCalendarItemsData();
 	}, [getCalendarItemsData]);
 
