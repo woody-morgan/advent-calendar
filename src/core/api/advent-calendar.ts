@@ -79,7 +79,6 @@ export const createCalendar = async (
 	contentUrl: string,
 ): Promise<IAdventCalendarItem> => {
 	const postDate = openDate.format("YYYY-MM-DD");
-	console.log(contentUrl);
 	try {
 		toast.loading("생성중입니다", {
 			toastId: 2,

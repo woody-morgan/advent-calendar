@@ -17,6 +17,12 @@
 		padding: 0;
 		margin: 0;
 		font-size: 0.8rem;
+		width: 100%;
+	}
+
+	input,
+	a {
+		@include TextEllipsis;
 	}
 
 	input,
