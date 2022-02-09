@@ -12,9 +12,7 @@
 	align-items: center;
 	visibility: hidden;
 	opacity: 0;
-	overflow: auto;
 	&.active {
-		overflow: hidden;
 		visibility: visible;
 		opacity: 1;
 		transition: opacity ease 0.25s;
