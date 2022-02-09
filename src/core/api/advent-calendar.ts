@@ -27,7 +27,7 @@ export const validateSecretKey = async (
 
 export const getAllCalendars = async (): Promise<IAdventCalendarItem[]> => {
 	try {
-		toast.loading("로딩중", {
+		toast.loading("Heroku 인스턴스 활성화중입니다", {
 			toastId: 1,
 		});
 		const { data } = await axios.get("/advent-windows");
