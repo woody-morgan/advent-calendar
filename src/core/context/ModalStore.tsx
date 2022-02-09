@@ -28,6 +28,7 @@ export const ModalProvider: FC = ({ children }) => {
 	const [modalOption, setModalOption] = useState<any>();
 
 	const closeModal = useCallback(() => {
+		document.body.style.overflow = "auto";
 		setModal(null);
 		setModalOption(null);
 	}, []);
@@ -35,6 +36,7 @@ export const ModalProvider: FC = ({ children }) => {
 	const openModal = useCallback(
 		(modal: TModal, modalOption?: any) => {
 			closeModal();
+			document.body.style.overflow = "hidden";
 			setModalOption(modalOption);
 			setModal(modal);
 		},
