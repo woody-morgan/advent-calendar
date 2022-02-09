@@ -28,8 +28,8 @@ const ModalBase: FC<IModalBase> = ({ show, onClose, children }: IModalBase) => {
 						X
 					</button>
 					<div>Advent Calendar</div>
+					<div />
 				</div>
-
 				<div className={styles.contents}>{children}</div>
 			</div>
 		</div>

@@ -12,7 +12,9 @@
 	align-items: center;
 	visibility: hidden;
 	opacity: 0;
+	overflow: auto;
 	&.active {
+		overflow: hidden;
 		visibility: visible;
 		opacity: 1;
 		transition: opacity ease 0.25s;
@@ -32,45 +34,35 @@
 .modal_con {
 	position: relative;
 	z-index: 998;
-	max-width: 500px;
+	width: 500px;
 	min-width: 300px;
-	min-height: 100px;
-	width: 50%;
-	padding: 20px;
+	padding: 0 20px;
 	border-radius: 5px;
 	background: #fff;
-	& .contents {
-		padding: 20px 0;
-	}
 	@include mobile {
 		width: 100%;
-		max-width: unset;
 	}
+	> * {
+		padding: 20px 0;
+	}
+}
+
+.modal_con .contents {
+	overflow: scroll;
+	@include removeScroll();
 }
 
 .modal_head {
 	display: flex;
-	position: relative;
 	align-items: center;
-	justify-content: center;
-	& .close {
-		position: absolute;
-		top: 0;
-		left: 0;
-		font-size: inherit;
+	justify-content: space-between;
+	border-bottom: 2px solid rgba(gray, 0.3);
+	button {
 		color: inherit;
+		font-size: 100%;
+		padding: 0;
 	}
-}
-
-.modal_wrap.active .modal_con {
-	position: relative;
-	z-index: 999;
-	max-width: 500px;
-	min-width: 300px;
-	min-height: 100px;
-	width: 33%;
-	padding: 20px;
-	border-radius: 5px;
-	background: #fff;
-	transform: translateY(0px);
+	@include mobile {
+		border-bottom: 1px solid rgba(gray, 0.3);
+	}
 }
