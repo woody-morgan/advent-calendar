@@ -2,15 +2,13 @@
 
 .day_cell_cnt {
 	position: relative;
-	width: 100%;
 	height: 100%;
-	padding: 4px;
-	font-size: 0.5rem;
+	padding: 0.25rem;
 	> * {
-		margin-bottom: 4px;
+		margin-bottom: 0.25rem;
 	}
 	@include mobile {
-		padding: 1px;
+		padding: 0.125rem;
 	}
 }
 
@@ -18,17 +16,20 @@
 	display: flex;
 	flex-direction: column;
 	align-items: baseline;
-	gap: 4px;
+	gap: 0.25rem;
+	> * {
+		font-size: 0.75rem;
+	}
 	& .profile {
 		display: inherit;
 		align-items: center;
-		gap: 8px;
+		gap: 0.5rem;
 	}
 	& .profile span {
+		font-size: 0.5rem;
 		@include MoreText(1);
 	}
 	@include mobile {
-		// remove profile img in mobile
 		& .profile img {
 			display: none;
 		}
@@ -36,9 +37,11 @@
 }
 
 .day_cell_body {
-	width: 110px;
+	> * {
+		font-size: 0.5rem;
+	}
 	& .avail {
-		font-size: 20px;
+		font-size: 1rem;
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -47,30 +50,14 @@
 	& .highlighted {
 		@include MoreText(3);
 	}
-	// remove body in mobile
 	@include mobile {
-		width: 40px;
 		& .highlighted {
 			display: none;
 		}
-		& .avail {
-			font-size: 12px;
-		}
 	}
-}
-
-.week_header {
-	color: $font-black;
-}
-
-.plus {
-	font-size: 40px;
-	line-height: 20px;
 }
 
 .info_text {
-	font-size: 18px;
-	@include mobile {
-		font-size: 10px;
-	}
+	font-size: 1rem;
+	margin: 0.75rem 0;
 }

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import classNames from "classnames";
 import styles from "./PageLayout.module.scss";
 import Footer from "./Footer/Footer";
@@ -9,11 +9,7 @@ interface Props {
 	className?: string;
 	fullWidth?: boolean;
 	fixedHeight?: boolean;
-	hideMobileHeader?: boolean;
 	removeFooter?: boolean;
-	backwardURL?: string;
-	backwardEnabled?: boolean;
-	primaryHeader?: boolean;
 	enablePageTransition?: boolean;
 }
 
@@ -23,10 +19,22 @@ const PageLayout: FC<Props> = ({
 	fullWidth = false,
 	fixedHeight = false,
 	removeFooter = false,
-	backwardURL = "/",
-	backwardEnabled = false,
 	enablePageTransition = false,
 }) => {
+	const headerRef = useRef<HTMLDivElement>(null);
+	const contentRef = useRef<HTMLDivElement>(null);
+	const footerRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const headerHeight = headerRef.current?.clientHeight || 0;
+		const footerHeight = footerRef.current?.clientHeight || 0;
+
+		contentRef.current?.style.setProperty(
+			"min-height",
+			`${window.innerHeight - headerHeight - footerHeight}px`,
+		);
+	}, []);
+
 	return (
 		<main className={classNames(styles.container, className)}>
 			{/* {fixedHeight && (
@@ -36,8 +44,12 @@ const PageLayout: FC<Props> = ({
           }
         `}</style>
       )} */}
-			<Header />
+			<div ref={headerRef}>
+				<Header />
+			</div>
+
 			<div
+				ref={contentRef}
 				className={classNames(styles.content, {
 					[styles["full-width"]]: fullWidth,
 					[styles["fixed-height"]]: fixedHeight,
@@ -49,7 +61,7 @@ const PageLayout: FC<Props> = ({
 					<>{children}</>
 				)}
 			</div>
-			{!removeFooter && <Footer />}
+			<div ref={footerRef}>{!removeFooter && <Footer />}</div>
 		</main>
 	);
 };
