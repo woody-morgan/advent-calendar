@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import _ from "lodash";
+import { throttle } from "lodash-es";
 
 export default function useWindowSize() {
 	const [windowSize, setWindowSize] = useState<{
@@ -10,7 +10,7 @@ export default function useWindowSize() {
 		height: undefined,
 	});
 	useEffect(() => {
-		const handleResize = _.throttle(() => {
+		const handleResize = throttle(() => {
 			setWindowSize({
 				width: window.innerWidth,
 				height: window.innerHeight,
