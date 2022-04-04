@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Home, Profile } from "@src/pages";
 // import for global localization
-import "@utils/i18n";
 import "@styles/App.scss";
 import "react-toastify/dist/ReactToastify.css";
 
