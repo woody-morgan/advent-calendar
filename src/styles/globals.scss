@@ -2,29 +2,12 @@
 @import "variables";
 
 html,
-body {
-	padding: 0;
+* {
 	margin: 0;
-	color: black;
-
+	font-size: 16px;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
 		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
 		sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
-}
-
-body {
-	color: $font-black;
-	overflow: overlay;
-	@include mobile {
-		overflow: scroll;
-	}
 }
 
 * {
@@ -42,36 +25,4 @@ button {
 	border: none;
 	cursor: pointer;
 	background: none;
-}
-
-// primary font value
-h1 {
-	margin: 0px;
-	font-size: 32px;
-	line-height: 37px;
-}
-h2 {
-	margin: 0px;
-	font-size: 24px;
-	line-height: 28px;
-}
-h3 {
-	margin: 0px;
-	font-size: 20px;
-	line-height: 23px;
-}
-h4 {
-	margin: 0px;
-	font-size: 16px;
-	line-height: 19px;
-}
-h5 {
-	margin: 0px;
-	font-size: 14px;
-	line-height: 16px;
-}
-h6 {
-	margin: 0px;
-	font-size: 12px;
-	line-height: 14px;
 }

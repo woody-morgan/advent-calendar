@@ -8,6 +8,7 @@ $radius: 16px;
 }
 
 .CalendarDay {
+	overflow: auto;
 	// border: 1px solid transparent;
 	border: 1px solid rgba($base-color, 0.5);
 	// border-radius: 10px;
