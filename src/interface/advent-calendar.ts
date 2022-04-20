@@ -1,4 +1,4 @@
-export interface IAdventCalendarItem {
+export interface CalendarItemShape {
 	body: string | null;
 	editedDateTime: string;
 	// 조회수
@@ -20,14 +20,14 @@ export interface IAdventCalendarItem {
 	contentUrl: string | null;
 }
 
-export interface IAdventCalendarPostForm {
+export interface CalendarPostForm {
 	name: string;
 	title: string;
 	body: string;
 	openDate: Date;
 }
 
-export interface IAdventCalendarPatchForm {
+export interface CalendarPatchForm {
 	windowSeq: number;
 	title: string;
 	body: string;
@@ -35,7 +35,7 @@ export interface IAdventCalendarPatchForm {
 	openDate: Date;
 }
 
-export interface IAdventCalendarDeleteForm {
+export interface CalendarDeleteForm {
 	windowSeq: number;
 	secretKey: string;
 }

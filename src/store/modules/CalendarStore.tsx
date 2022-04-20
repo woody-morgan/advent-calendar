@@ -6,16 +6,16 @@ import React, {
 	useCallback,
 	useLayoutEffect,
 } from "react";
-import { IAdventCalendarItem } from "../interface/advent-calendar";
-import { getAllCalendars } from "@core/api/advent-calendar";
+import { CalendarItemShape } from "../../interface/advent-calendar";
+import { getAllCalendars } from "@src/api/advent-calendar";
 import moment, { Moment } from "moment";
 
 interface ICalendarContext {
 	isInit: boolean;
-	calendarItems: Map<string, IAdventCalendarItem>;
+	calendarItems: Map<string, CalendarItemShape>;
 	getNewData: () => void;
-	addCalendarItem: (key: Moment, item: IAdventCalendarItem) => void;
-	updateCalendarItem: (key: Moment, item: IAdventCalendarItem) => void;
+	addCalendarItem: (key: Moment, item: CalendarItemShape) => void;
+	updateCalendarItem: (key: Moment, item: CalendarItemShape) => void;
 	deleteCalendarItem: (key: Moment) => void;
 }
 
@@ -33,13 +33,13 @@ export const useCalendar = (): ICalendarContext => useContext(CalendarContext);
 export const CalendarProvider: FC = ({ children }) => {
 	const [isInit, setInit] = useState<boolean>(false);
 	const [calendarItems, setCalendarsItems] = useState<
-		Map<string, IAdventCalendarItem>
+		Map<string, CalendarItemShape>
 	>(new Map());
 
 	// Logics for Data Fetching
 	const getCalendarItemsData = useCallback(async () => {
 		const data = await getAllCalendars();
-		let mapObj = new Map<string, IAdventCalendarItem>();
+		let mapObj = new Map<string, CalendarItemShape>();
 		for (const key in data) {
 			const newKey = moment(data[Number(key)].openDate).format("YYYY-MM-DD");
 			mapObj.set(newKey, data[Number(key)]);
@@ -49,7 +49,7 @@ export const CalendarProvider: FC = ({ children }) => {
 	}, []);
 
 	const addCalendarItem = useCallback(
-		(key: Moment, item: IAdventCalendarItem) => {
+		(key: Moment, item: CalendarItemShape) => {
 			setCalendarsItems((prev) =>
 				new Map(prev).set(key.format("YYYY-MM-DD"), item),
 			);
@@ -58,7 +58,7 @@ export const CalendarProvider: FC = ({ children }) => {
 	);
 
 	const updateCalendarItem = useCallback(
-		(key: Moment, item: IAdventCalendarItem) => {
+		(key: Moment, item: CalendarItemShape) => {
 			addCalendarItem(key, item);
 		},
 		[addCalendarItem],

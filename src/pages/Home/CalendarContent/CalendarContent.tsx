@@ -1,4 +1,4 @@
-import { IAdventCalendarItem } from "@src/core/interface/advent-calendar";
+import { CalendarItemShape } from "@src/interface/advent-calendar";
 import type { Moment } from "moment";
 import moment from "moment";
 
@@ -47,8 +47,8 @@ export const CalendarWithFilled = ({
 	onClick,
 }: {
 	day: Moment;
-	data: IAdventCalendarItem;
-	onClick: (data: IAdventCalendarItem) => void;
+	data: CalendarItemShape;
+	onClick: (data: CalendarItemShape) => void;
 }) => {
 	return (
 		<div className={styles.day_cell_cnt} onClick={() => onClick(data)}>

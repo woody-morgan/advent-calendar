@@ -2,13 +2,13 @@ import React, { FC } from "react";
 import classNames from "classnames";
 import styles from "./ModalBase.module.scss";
 
-interface IModalBase {
+interface ModalBaseShape {
 	show: boolean;
+	title?: string;
 	onClose: () => void;
-	children: React.ReactNode;
 }
 
-const ModalBase: FC<IModalBase> = ({ show, onClose, children }: IModalBase) => {
+const ModalBase: FC<ModalBaseShape> = ({ show, title, onClose, children }) => {
 	return (
 		<div className={classNames(styles.cnt, { [styles.active]: show })}>
 			<div
@@ -27,7 +27,7 @@ const ModalBase: FC<IModalBase> = ({ show, onClose, children }: IModalBase) => {
 					>
 						X
 					</button>
-					<div>Advent Calendar</div>
+					<div>{title}</div>
 					<div />
 				</div>
 				<div className={styles.contents}>{children}</div>

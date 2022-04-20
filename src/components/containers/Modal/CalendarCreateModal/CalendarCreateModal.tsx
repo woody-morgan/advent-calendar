@@ -1,17 +1,17 @@
 import { useCallback, useState } from "react";
 import { Moment } from "moment";
-import { createCalendar } from "@core/api/advent-calendar";
+import { createCalendar } from "@src/api/advent-calendar";
 import { Button } from "@components/common";
 import styles from "./CalendarCreateModal.module.scss";
-import { useModal } from "@core/context/ModalStore";
 import { toast } from "react-toastify";
 import classNames from "classnames";
-import { useCalendar } from "@src/core/context/CalendarStore";
+import { useCalendar } from "@src/store/modules/CalendarStore";
 import { isValidPwd } from "@src/utils/check";
+import { useRootDispatch } from "@src/hooks/useRootState";
+import { open, close } from "@src/store/modules/modal";
 
 interface IProps {
 	options: Moment;
-	onClose: () => void;
 }
 
 interface IInputs {
@@ -26,9 +26,9 @@ interface ISecretKey {
 	isValid: boolean;
 }
 
-const CalendarInfoModal = ({ onClose, options }: IProps) => {
+const CalendarInfoModal = ({ options }: IProps) => {
 	const selectedDate = options;
-	const { openCalendarInfoModal, closeModal } = useModal();
+	const dispatch = useRootDispatch();
 	const { addCalendarItem, getNewData } = useCalendar();
 	const [Inputs, setInputs] = useState<IInputs>({
 		name: "",
@@ -74,17 +74,22 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 				title: result.title,
 				contentUrl: result.contentUrl,
 			});
-			openCalendarInfoModal(result);
+			dispatch(
+				open({
+					name: "CALENDAR-INFO",
+					title: "캘린더 정보",
+					option: result,
+				}),
+			);
 		} catch (err) {
 			getNewData();
-			closeModal();
+			dispatch(close());
 		}
 	}, [
 		Inputs,
 		addCalendarItem,
-		closeModal,
+		dispatch,
 		getNewData,
-		openCalendarInfoModal,
 		secretKey.isValid,
 		secretKey.key,
 		selectedDate,

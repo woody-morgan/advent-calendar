@@ -1,23 +1,23 @@
 import { useCallback, useMemo, useState } from "react";
 import { Button } from "@src/components/common";
 import styles from "./CalendarInfoModal.module.scss";
-import { IAdventCalendarItem } from "@src/core/interface/advent-calendar";
+import { CalendarItemShape } from "@src/interface/advent-calendar";
 import classNames from "classnames";
 import moment from "moment";
+import { close } from "@src/store/modules/modal";
 
 import {
 	validateSecretKey,
 	getCalendarBySecretKey,
 	updateCalendarByID,
 	deleteCalendarByID,
-} from "@core/api/advent-calendar";
-import { useCalendar } from "@src/core/context/CalendarStore";
-import { useModal } from "@src/core/context/ModalStore";
+} from "@src/api/advent-calendar";
+import { useCalendar } from "@src/store/modules/CalendarStore";
 import { isValidPwd } from "@src/utils/check";
+import { useRootDispatch } from "@src/hooks/useRootState";
 
 interface IProps {
-	options: IAdventCalendarItem;
-	onClose: () => void;
+	options: CalendarItemShape;
 }
 
 interface IInputs {
@@ -32,11 +32,13 @@ interface ISecretKey {
 	isValid: boolean;
 }
 
-const CalendarInfoModal = ({ onClose, options }: IProps) => {
+const CalendarInfoModal = ({ options }: IProps) => {
 	const selectedDate = moment(options.openDate);
 	const isAfterToday = selectedDate.isAfter(moment());
+
+	const dispatch = useRootDispatch();
+
 	const { updateCalendarItem, deleteCalendarItem } = useCalendar();
-	const { closeModal } = useModal();
 	const [Inputs, setInputs] = useState<IInputs>({
 		name: options.name ?? "",
 		title: isAfterToday ? "오픈일이 아닙니다" : options.title ?? "",
@@ -110,8 +112,8 @@ const CalendarInfoModal = ({ onClose, options }: IProps) => {
 		}
 		await deleteCalendarByID(options.windowSeq, inputSecretKey);
 		deleteCalendarItem(selectedDate);
-		closeModal();
-	}, [closeModal, deleteCalendarItem, options.windowSeq, selectedDate]);
+		dispatch(close());
+	}, [deleteCalendarItem, dispatch, options.windowSeq, selectedDate]);
 
 	const ButtonComp = useMemo(() => {
 		return () => {
