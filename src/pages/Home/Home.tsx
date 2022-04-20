@@ -3,7 +3,6 @@ import styles from "./home.module.scss";
 import { PageLayout } from "@src/components/layout";
 import { Calendar } from "@src/components/common";
 import { Moment } from "moment";
-import { useModal } from "@src/core/context/ModalStore";
 import moment from "moment";
 import {
 	isInclusivelyAfterDay,
@@ -11,17 +10,19 @@ import {
 	isSameDay,
 	ModifiersShape,
 } from "react-dates";
-import { useCalendar } from "@src/core/context/CalendarStore";
+import { useCalendar } from "@src/store/modules/CalendarStore";
 import {
 	CalendarWithEmpty,
 	CalendarWithFilled,
 	CustomCalendarInfo,
 	CustomWeekHeaderElement,
 } from "./CalendarContent/CalendarContent";
+import { useRootDispatch } from "@src/hooks/useRootState";
+import { open } from "@src/store/modules/modal";
 
 const Home: FC = () => {
 	const { isInit, calendarItems } = useCalendar();
-	const { openCalendarInfoModal, openCalendarCreateModal } = useModal();
+	const dispatch = useRootDispatch();
 
 	const renderDayContents = useCallback(
 		(day: Moment, modifiers: ModifiersShape) => {
@@ -31,7 +32,15 @@ const Home: FC = () => {
 				return (
 					<CalendarWithEmpty
 						day={day}
-						onClick={() => openCalendarCreateModal(day)}
+						onClick={() =>
+							dispatch(
+								open({
+									name: "CALENDAR-CREATE",
+									title: "새로운 일정 추가",
+									option: day,
+								}),
+							)
+						}
 					/>
 				);
 			}
@@ -40,7 +49,15 @@ const Home: FC = () => {
 					<CalendarWithFilled
 						day={day}
 						data={result}
-						onClick={() => openCalendarInfoModal(result)}
+						onClick={() =>
+							dispatch(
+								open({
+									name: "CALENDAR-INFO",
+									title: "캘린더 정보",
+									option: result,
+								}),
+							)
+						}
 					/>
 				);
 			}

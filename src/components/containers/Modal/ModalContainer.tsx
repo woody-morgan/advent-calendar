@@ -1,27 +1,36 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 import ModalPortal from "./ModalPortal";
 import ModalBase from "./ModalBase";
-import {useModal} from "@core/context/ModalStore";
-import {SignInModal} from "@src/components/containers";
-import {TModal} from "@src/core/interface/modal";
-import {CalendarCreateModal, CalendarInfoModal} from "@components/containers";
+import { CalendarCreateModal, CalendarInfoModal } from "@components/containers";
+import { useRootDispatch, useRootState } from "@src/hooks/useRootState";
+import { close, ModalType } from "@src/store/modules/modal";
+import { Moment } from "moment";
+import { CalendarItemShape } from "@src/interface/advent-calendar";
 
 const ModalContainer: FC = () => {
-    const {modal, modalOption, closeModal} = useModal();
+	const modal = useRootState((state) => state.modal);
+	const dispatch = useRootDispatch();
 
-    const SelectRenderingModal: { [keys in TModal]: JSX.Element } = {
-        "LOGIN": <SignInModal onClose={closeModal}/>,
-        "CALENDAR-INFO": <CalendarInfoModal onClose={closeModal} options={modalOption}/>,
-        "CALENDAR-CREATE": <CalendarCreateModal onClose={closeModal} options={modalOption}/>,
-    };
+	const selectRenderingModal: { [keys in ModalType]: JSX.Element } = {
+		"CALENDAR-INFO": (
+			<CalendarInfoModal options={modal.option as CalendarItemShape} />
+		),
+		"CALENDAR-CREATE": <CalendarCreateModal options={modal.option as Moment} />,
+	};
 
-    return (
-        <ModalPortal>
-            <ModalBase onClose={closeModal} show={!!modal}>
-                {modal ? SelectRenderingModal[modal] : null}
-            </ModalBase>
-        </ModalPortal>
-    );
+	return (
+		<ModalPortal>
+			<ModalBase
+				title={modal.title ?? "Advent Calendar"}
+				show={modal.name ? true : false}
+				onClose={() => {
+					dispatch(close());
+				}}
+			>
+				{modal.name ? selectRenderingModal[modal.name] : null}
+			</ModalBase>
+		</ModalPortal>
+	);
 };
 
 export default ModalContainer;

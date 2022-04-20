@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import type { Moment } from "moment";
 import { toast } from "react-toastify";
-import { IAdventCalendarItem } from "../interface/advent-calendar";
+import { CalendarItemShape } from "../interface/advent-calendar";
 
 export const validateSecretKey = async (
 	windowSeq: number,
@@ -25,7 +25,7 @@ export const validateSecretKey = async (
 	}
 };
 
-export const getAllCalendars = async (): Promise<IAdventCalendarItem[]> => {
+export const getAllCalendars = async (): Promise<CalendarItemShape[]> => {
 	try {
 		toast.loading("Heroku 인스턴스 활성화중입니다", {
 			toastId: 1,
@@ -43,7 +43,7 @@ export const getAllCalendars = async (): Promise<IAdventCalendarItem[]> => {
 
 export const getCalendarByID = async (
 	windowSeq: number,
-): Promise<IAdventCalendarItem> => {
+): Promise<CalendarItemShape> => {
 	try {
 		const { data } = await axios.get("advent-windows", {
 			params: windowSeq,
@@ -57,7 +57,7 @@ export const getCalendarByID = async (
 export const getCalendarBySecretKey = async (
 	windowSeq: number,
 	secretKey: string,
-): Promise<IAdventCalendarItem> => {
+): Promise<CalendarItemShape> => {
 	const params = { secretKey: [secretKey] };
 	try {
 		const { data } = await axios.get(`advent-windows/${windowSeq}`, {
@@ -77,7 +77,7 @@ export const createCalendar = async (
 	openDate: Moment,
 	secretKey: string,
 	contentUrl: string,
-): Promise<IAdventCalendarItem> => {
+): Promise<CalendarItemShape> => {
 	const postDate = openDate.format("YYYY-MM-DD");
 	try {
 		toast.loading("생성중입니다", {

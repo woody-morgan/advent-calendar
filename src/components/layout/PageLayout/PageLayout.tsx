@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 import classNames from "classnames";
 import styles from "./PageLayout.module.scss";
 import Footer from "./Footer/Footer";
@@ -37,13 +37,6 @@ const PageLayout: FC<Props> = ({
 
 	return (
 		<main className={classNames(styles.container, className)}>
-			{/* {fixedHeight && (
-        <style jsx global>{`
-          body {
-            overflow: hidden;
-          }
-        `}</style>
-      )} */}
 			<div ref={headerRef}>
 				<Header />
 			</div>

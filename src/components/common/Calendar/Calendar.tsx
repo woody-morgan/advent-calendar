@@ -1,7 +1,7 @@
 import React, { FC, useMemo, useState } from "react";
 import { DayPickerSingleDateController, ModifiersShape } from "react-dates";
 import type { Moment } from "moment";
-import useWindowSize from "@src/core/hooks/useWindowSize";
+import useWindowSize from "@src/hooks/useWindowSize";
 
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
