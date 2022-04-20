@@ -1,36 +1,36 @@
-@use "sass:math";
-@import "@styles/mixins";
+@use 'sass:math';
+@import '@styles/mixins';
 
 .container {
-	display: flex;
-	position: fixed;
-	width: 100%;
-	top: 0;
-	z-index: 20;
+  display: flex;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 20;
 
-	justify-content: flex-start;
-	justify-content: space-between;
+  justify-content: flex-start;
+  justify-content: space-between;
 
-	padding: $header-padding 36px;
+  padding: $header-padding 36px;
 
-	background: $base-color;
-	border-bottom: 1px solid #fff;
+  background: $base-color;
+  border-bottom: 1px solid #fff;
 
-	@include mobile {
-		padding-left: 28px;
-	}
+  @include mobile {
+    padding-left: 28px;
+  }
 }
 
 .item {
-	display: flex;
-	line-height: $header-font-height;
-	align-items: center;
-	font-size: 1rem;
-	> * {
-		padding-right: 10px;
-	}
+  display: flex;
+  line-height: $header-font-height;
+  align-items: center;
+  font-size: 1rem;
+  > * {
+    padding-right: 10px;
+  }
 }
 
 .logo_img {
-	height: $header-logo-height;
+  height: $header-logo-height;
 }

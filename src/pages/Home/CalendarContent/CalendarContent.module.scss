@@ -1,63 +1,63 @@
-@import "@styles/mixins";
+@import '@styles/mixins';
 
 .day_cell_cnt {
-	position: relative;
-	height: 100%;
-	padding: 0.25rem;
-	> * {
-		margin-bottom: 0.25rem;
-	}
-	@include mobile {
-		padding: 0.125rem;
-	}
+  position: relative;
+  height: 100%;
+  padding: 0.25rem;
+  > * {
+    margin-bottom: 0.25rem;
+  }
+  @include mobile {
+    padding: 0.125rem;
+  }
 }
 
 .day_cell_header {
-	display: flex;
-	flex-direction: column;
-	align-items: baseline;
-	gap: 0.25rem;
-	> * {
-		font-size: 0.75rem;
-	}
-	& .profile {
-		display: inherit;
-		align-items: center;
-		gap: 0.5rem;
-	}
-	& .profile span {
-		font-size: 0.5rem;
-		@include MoreText(1);
-	}
-	@include mobile {
-		& .profile img {
-			display: none;
-		}
-	}
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  gap: 0.25rem;
+  > * {
+    font-size: 0.75rem;
+  }
+  & .profile {
+    display: inherit;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  & .profile span {
+    font-size: 0.5rem;
+    @include MoreText(1);
+  }
+  @include mobile {
+    & .profile img {
+      display: none;
+    }
+  }
 }
 
 .day_cell_body {
-	> * {
-		font-size: 0.5rem;
-	}
-	& .avail {
-		font-size: 1rem;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
-	& .highlighted {
-		@include MoreText(3);
-	}
-	@include mobile {
-		& .highlighted {
-			display: none;
-		}
-	}
+  > * {
+    font-size: 0.5rem;
+  }
+  & .avail {
+    font-size: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  & .highlighted {
+    @include MoreText(3);
+  }
+  @include mobile {
+    & .highlighted {
+      display: none;
+    }
+  }
 }
 
 .info_text {
-	font-size: 1rem;
-	margin: 0.75rem 0;
+  font-size: 1rem;
+  margin: 0.75rem 0;
 }

@@ -1,11 +1,11 @@
-import { combineReducers } from "@reduxjs/toolkit";
+import { combineReducers } from '@reduxjs/toolkit'
 
-import auth from "./auth";
-import modal from "./modal";
+import auth from './auth'
+import modal from './modal'
 
 const reducer = combineReducers({
-	auth,
-	modal,
-});
+  auth,
+  modal,
+})
 
-export default reducer;
+export default reducer
