@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import { forwardRef, ReactNode } from 'react'
 import { btnSizes, btnStyles } from '@utils/constants'
 import classnames, { TTailwindString } from 'tailwindcss-classnames'
 
@@ -8,7 +8,7 @@ interface ButtonShape {
   styles?: btnStyles
   disabled?: boolean
   fullWidth?: boolean
-  children?: React.ReactNode
+  children?: ReactNode
   onClick?: () => void
 }
 

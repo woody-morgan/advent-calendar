@@ -17,3 +17,8 @@
 ## Todo
 
 1. CalendarStore 코드를 Context -> RTK로 변경(비동기로 인해 AsyncThunk 사용해야함)
+2. Framer-motion의 shared layout 사용해서 UX 개선
+
+## 유용한 명령어
+
+npx yarn-deduplicate && yarn

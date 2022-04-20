@@ -9,6 +9,7 @@ import { useCalendar } from '@src/store/modules/CalendarStore'
 import { isValidPwd } from '@src/utils/check'
 import { useRootDispatch } from '@src/hooks/useRootState'
 import { open, close } from '@src/store/modules/modal'
+import { BaseSyntheticEvent } from '@src/interface/base'
 
 interface IProps {
   options: Moment
@@ -42,12 +43,12 @@ const CalendarInfoModal = ({ options }: IProps) => {
     isValid: false,
   })
 
-  const handleInput = useCallback((e) => {
+  const handleInput = useCallback((e: BaseSyntheticEvent) => {
     const { id, value } = e.target
     setInputs((prev) => ({ ...prev, [id]: value }))
   }, [])
 
-  const handleSecretKeyInput = useCallback((e) => {
+  const handleSecretKeyInput = useCallback((e: BaseSyntheticEvent) => {
     const { value } = e.target
     const isCorrect = isValidPwd(value)
     setSecretKey({ key: value, isValid: isCorrect })

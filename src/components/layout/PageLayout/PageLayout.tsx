@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react'
+import { FC, ReactNode, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import styles from './PageLayout.module.scss'
 import Footer from './Footer/Footer'
@@ -7,6 +7,7 @@ import PageTransition from './PageTransition/PageTransition'
 
 interface Props {
   className?: string
+  children: ReactNode
   fullWidth?: boolean
   fixedHeight?: boolean
   removeFooter?: boolean
