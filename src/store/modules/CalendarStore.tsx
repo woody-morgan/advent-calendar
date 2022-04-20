@@ -1,4 +1,12 @@
-import React, { FC, createContext, useContext, useState, useCallback, useLayoutEffect } from 'react'
+import {
+  FC,
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useLayoutEffect,
+  ReactNode,
+} from 'react'
 import { CalendarItemShape } from '../../interface/advent-calendar'
 import { getAllCalendars } from '@src/api/advent-calendar'
 import moment, { Moment } from 'moment'
@@ -23,7 +31,9 @@ export const CalendarContext = createContext<ICalendarContext>({
 
 export const useCalendar = (): ICalendarContext => useContext(CalendarContext)
 
-export const CalendarProvider: FC = ({ children }) => {
+export const CalendarProvider: FC<{
+  children: ReactNode
+}> = ({ children }) => {
   const [isInit, setInit] = useState<boolean>(false)
   const [calendarItems, setCalendarsItems] = useState<Map<string, CalendarItemShape>>(new Map())
 
