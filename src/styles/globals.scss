@@ -1,28 +1,41 @@
-@import "mixins";
-@import "variables";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html,
-* {
-	margin: 0;
-	font-size: 16px;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-		sans-serif;
+:root {
+  --app-height: 100vh;
+  --app-header-height: 0px;
+  --app-max-width: 1400px;
+  --primary-color: rgb(51, 65, 85);
+  --secondary-color: #536390;
+  --font-color: #424242;
+  --bg-color: #fff;
+  --heading-color: #292922;
 }
 
-* {
-	box-sizing: border-box;
+[data-theme='dark'] {
+  --primary-color: rgb(51, 65, 85);
+  --secondary-color: #818cab;
+  --font-color: #e1e1ff;
+  --bg-color: #161625;
+  --heading-color: #818cab;
 }
 
-a {
-	color: inherit;
-	text-decoration: none;
-	cursor: pointer;
+html * {
+  color: #000;
+  font-size: 16px;
+  box-sizing: border-box;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-button {
-	outline: none;
-	border: none;
-	cursor: pointer;
-	background: none;
+html * ::-webkit-scrollbar {
+  display: none;
+}
+
+*,
+*:before,
+*:after {
+  color: inherit;
+  box-sizing: inherit;
 }

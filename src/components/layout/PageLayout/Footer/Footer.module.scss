@@ -1,59 +1,59 @@
-@import "@styles/mixins";
+@import '@styles/mixins';
 
 .bg {
-	background: rgba($base-color, 0.5);
+  background: rgba($base-color, 0.5);
 }
 
 .container {
-	margin: 0 auto;
-	width: 100%;
-	max-width: $content-max-width;
-	padding: 20px 40px;
-	@include mobile {
-		padding: 20px 20px;
-	}
+  margin: 0 auto;
+  width: 100%;
+  max-width: $content-max-width;
+  padding: 20px 40px;
+  @include mobile {
+    padding: 20px 20px;
+  }
 }
 
 .content {
-	display: flex;
-	&:not(:nth-child(2)) {
-		padding: 20px 0px;
-	}
-	@include mobile {
-		&:not(:last-child) {
-			flex-direction: column;
-		}
-		&:nth-child(4) {
-			text-align: center;
-		}
-		&:nth-child(5) {
-			justify-content: center;
-		}
-	}
+  display: flex;
+  &:not(:nth-child(2)) {
+    padding: 20px 0px;
+  }
+  @include mobile {
+    &:not(:last-child) {
+      flex-direction: column;
+    }
+    &:nth-child(4) {
+      text-align: center;
+    }
+    &:nth-child(5) {
+      justify-content: center;
+    }
+  }
 }
 
 .item {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	a,
-	h5:not(:first-child) {
-		margin-top: 1rem;
-		font-weight: normal;
-	}
-	a {
-		color: rgba(rgb(233, 114, 114), 0.8);
-	}
-	a:hover {
-		color: rgba(rgb(233, 114, 114), 1);
-	}
-	@include mobile {
-		a,
-		h5:not(:first-child) {
-			margin-top: 0.75rem;
-		}
-		h5 {
-			max-width: unset;
-		}
-	}
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  a,
+  h5:not(:first-child) {
+    margin-top: 1rem;
+    font-weight: normal;
+  }
+  a {
+    color: rgba(rgb(233, 114, 114), 0.8);
+  }
+  a:hover {
+    color: rgba(rgb(233, 114, 114), 1);
+  }
+  @include mobile {
+    a,
+    h5:not(:first-child) {
+      margin-top: 0.75rem;
+    }
+    h5 {
+      max-width: unset;
+    }
+  }
 }

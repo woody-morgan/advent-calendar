@@ -1,22 +1,22 @@
-@import "@styles/mixins";
+@import '@styles/mixins';
 
 .container {
-	font-family: $base-font;
-	font-style: normal;
-	font-weight: normal;
-	display: flex;
-	flex-direction: column;
+  font-family: $base-font;
+  font-style: normal;
+  font-weight: normal;
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
-	padding: $header-height 0 0 0;
-	width: 100%;
-	max-width: $content-max-width;
-	margin: 0 auto;
-	&.full-width {
-		max-width: unset;
-	}
-	&.fixed-height {
-		overflow: hidden;
-	}
+  padding: $header-height 0 0 0;
+  width: 100%;
+  max-width: $content-max-width;
+  margin: 0 auto;
+  &.full-width {
+    max-width: unset;
+  }
+  &.fixed-height {
+    overflow: hidden;
+  }
 }
