@@ -9,14 +9,12 @@
 }
 
 .content {
+  min-height: 100vh;
   padding: $header-height 0 0 0;
   width: 100%;
   max-width: $content-max-width;
   margin: 0 auto;
   &.full-width {
     max-width: unset;
-  }
-  &.fixed-height {
-    overflow: hidden;
   }
 }

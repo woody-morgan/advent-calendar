@@ -1,5 +1,4 @@
 import { FC, useCallback } from 'react'
-import styles from './home.module.scss'
 import { PageLayout } from '@src/components/layout'
 import { Calendar } from '@src/components/common'
 import { Moment } from 'moment'
@@ -53,7 +52,7 @@ const Home: FC = () => {
               dispatch(
                 open({
                   name: 'CALENDAR-INFO',
-                  title: '캘린더 정보',
+                  title: `${result.title}`,
                   option: result,
                 })
               )
@@ -68,7 +67,7 @@ const Home: FC = () => {
 
   return (
     <PageLayout enablePageTransition>
-      <div className={styles.container}>
+      <div className="flex flex-col items-center justify-center w-full py-10 px-0">
         <Calendar
           initialVisibleMonth={() => moment('2022-02-01')}
           renderDayContents={renderDayContents}

@@ -9,17 +9,7 @@ export const CustomWeekHeaderElement = (day: string) => {
 }
 
 export const CustomCalendarInfo = () => {
-  return (
-    <ol className={styles.info_text}>
-      <li>한 칸에 한 명만 등록할 수 있습니다</li>
-      <li>
-        글을 등록할 수 있는 기한은&nbsp;
-        {process.env.REACT_APP_CALENDAR_START_DATE}부터&nbsp;
-        {process.env.REACT_APP_CALENDAR_END_DATE}&nbsp;입니다
-      </li>
-      <li>자신이 쓴 글을 수정할 수 없다면 관리자에게 문의해주세요</li>
-    </ol>
-  )
+  return <ol className="flex px-20"></ol>
 }
 
 export const CalendarWithEmpty = ({

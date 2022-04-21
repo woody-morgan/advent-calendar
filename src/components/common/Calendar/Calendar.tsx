@@ -2,6 +2,7 @@ import React, { FC, useMemo, useState } from 'react'
 import { DayPickerSingleDateController, ModifiersShape } from 'react-dates'
 import type { Moment } from 'moment'
 import useWindowSize from '@src/hooks/useWindowSize'
+import { debounce, throttle } from 'lodash-es'
 
 import 'react-dates/initialize'
 import 'react-dates/lib/css/_datepicker.css'
@@ -30,16 +31,17 @@ export const Calendar: FC<CalendarShape> = (props) => {
     date: null,
   })
 
-  const DaySizeMemo = useMemo(() => {
+  const daySize = throttle(() => {
     if (!width || width > 768) return 120
+    else if (width > 480) return 70
     else return 45
-  }, [width])
+  }, 100)
 
   return (
     <DayPickerSingleDateController
       {...props}
       transitionDuration={300}
-      daySize={DaySizeMemo}
+      daySize={daySize()}
       numberOfMonths={1}
       hideKeyboardShortcutsPanel
       focused={Inputs.focused}
