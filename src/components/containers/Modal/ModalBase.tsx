@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { modalOverlayVariants, modalVariants } from '@src/animations/modal'
+import { ReactComponent as XButton } from '@src/assets/xButton.svg'
 
 interface ModalBaseShape {
   show: boolean
@@ -14,6 +15,7 @@ const ModalBase: FC<ModalBaseShape> = ({ show, title, onClose, children }) => {
     <AnimatePresence exitBeforeEnter>
       {show && (
         <motion.div
+          id={`modal-base-${Math.random()}`}
           className="fixed flex justify-center items-center top-0 left-0 z-[1000] w-full h-full"
           initial="enter"
           animate="center"
@@ -30,19 +32,18 @@ const ModalBase: FC<ModalBaseShape> = ({ show, title, onClose, children }) => {
             className="relative z-[998] w-full sm:max-w-lg sm:min-w-[20rem] rounded-md p-8 bg-white/90"
             variants={modalVariants}
           >
-            <div className="flex items-center justify-between border-b-orange-200">
+            <div className="relative w-full items-center">
               <button
-                className="text-inherit p-0"
+                className="absolute left-0 text-lg h-full"
                 onClick={() => {
                   onClose()
                 }}
               >
-                X
+                <XButton />
               </button>
-              <div>{title}</div>
-              <div />
+              <div className="w-full text-center text-lg font-bold">{title}</div>
             </div>
-            <div className="py-5">{children}</div>
+            <div>{children}</div>
           </motion.div>
         </motion.div>
       )}

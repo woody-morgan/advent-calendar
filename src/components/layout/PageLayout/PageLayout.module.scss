@@ -9,12 +9,15 @@
 }
 
 .content {
-  min-height: 100vh;
+  min-height: 110vh;
   padding: $header-height 0 0 0;
   width: 100%;
   max-width: $content-max-width;
   margin: 0 auto;
   &.full-width {
     max-width: unset;
+  }
+  @include mobile {
+    min-height: 70vh;
   }
 }
