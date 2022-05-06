@@ -13,8 +13,8 @@ interface ButtonShape {
 }
 
 const selectSize: { [keys in btnSizes]: string } = {
-  large: 'px-16 text-lg h-16 rounded-lg',
-  medium: 'px-10 text-lg h-12 rounded-md',
+  large: 'px-16 text-lg h-12 rounded-lg',
+  medium: 'px-10 text-lg h-10 rounded-md',
   small: 'px-8 h-8 rounded-md',
   xsmall: 'px-6 h-6 rounded-md',
 }

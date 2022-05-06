@@ -1,21 +1,29 @@
 import { Variants } from 'framer-motion'
 
+const modalTransition = {
+  type: 'spring',
+  damping: 50,
+  mass: 1,
+  stiffness: 500,
+}
+
 export const modalVariants: Variants = {
   enter: {
-    y: -1000,
+    y: -200,
     opacity: 0,
-    transition: {
-      y: { stiffness: 20, velocity: -100 },
-    },
+    speed: 3,
   },
   center: {
     x: 0,
     y: 0,
     opacity: 1,
+    transition: modalTransition,
   },
   exit: {
-    y: 1000,
+    y: -200,
     opacity: 0,
+    speed: 3,
+    transition: modalTransition,
   },
 }
 

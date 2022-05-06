@@ -1,44 +1,37 @@
-import { useCallback, useState } from 'react'
+import { FC, FormEvent, useCallback, useState } from 'react'
 import { Moment } from 'moment'
 import { createCalendar } from '@src/api/advent-calendar'
 import { Button } from '@components/common'
-import styles from './CalendarCreateModal.module.scss'
 import { toast } from 'react-toastify'
-import classNames from 'classnames'
 import { useCalendar } from '@src/store/modules/CalendarStore'
 import { isValidPwd } from '@src/utils/check'
 import { useRootDispatch } from '@src/hooks/useRootState'
 import { open, close } from '@src/store/modules/modal'
 import { BaseSyntheticEvent } from '@src/interface/base'
+import UserInputArea from './UserInputArea'
 
-interface IProps {
+const CalendarInfoModal: FC<{
   options: Moment
-}
-
-interface IInputs {
-  name: string
-  title: string
-  body: string
-  contentUrl: string
-}
-
-interface ISecretKey {
-  key: string
-  isValid: boolean
-}
-
-const CalendarInfoModal = ({ options }: IProps) => {
+}> = ({ options }) => {
   const selectedDate = options
   const dispatch = useRootDispatch()
   const { addCalendarItem, getNewData } = useCalendar()
-  const [Inputs, setInputs] = useState<IInputs>({
+  const [Inputs, setInputs] = useState<{
+    name: string
+    title: string
+    body: string
+    contentUrl: string
+  }>({
     name: '',
     title: '',
     body: '',
     contentUrl: '',
   })
 
-  const [secretKey, setSecretKey] = useState<ISecretKey>({
+  const [secretKey, setSecretKey] = useState<{
+    key: string
+    isValid: boolean
+  }>({
     key: '',
     isValid: false,
   })
@@ -54,7 +47,8 @@ const CalendarInfoModal = ({ options }: IProps) => {
     setSecretKey({ key: value, isValid: isCorrect })
   }, [])
 
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (!secretKey.isValid) {
       toast.error('수정키는 7~16글자의 숫자,영문자 혼합이어야합니다')
       return
@@ -86,53 +80,34 @@ const CalendarInfoModal = ({ options }: IProps) => {
       getNewData()
       dispatch(close())
     }
-  }, [
-    Inputs,
-    addCalendarItem,
-    dispatch,
-    getNewData,
-    secretKey.isValid,
-    secretKey.key,
-    selectedDate,
-  ])
+  }
 
   return (
-    <div className={styles.cnt}>
-      <div className={styles.item}>{selectedDate.format('YYYY-MM-DD')}</div>
-      <div className={styles.item}>
-        <label htmlFor="name">작성자</label>
-        <input id="name" type="text" value={Inputs.name} onChange={handleInput} />
-      </div>
-      <div className={styles.item}>
-        <label htmlFor="title">제목</label>
-        <input id="title" type="text" value={Inputs.title} onChange={handleInput} />
-      </div>
-      <div
-        className={classNames(styles.item, {
-          [styles.error]: !secretKey.isValid,
-        })}
-      >
-        <label htmlFor="secret-key">수정키(7~16글자의 숫자, 영문자 혼합)</label>
-        <input
-          id="secret-key"
+    <form className="flex flex-col" onSubmit={handleSubmit}>
+      <div className="space-y-3">
+        <UserInputArea label="작성자" id="name" value={Inputs.name} onChange={handleInput} />
+        <UserInputArea label="제목" id="title" value={Inputs.title} onChange={handleInput} />
+        <UserInputArea
           type="password"
+          label="수정키(7~16글자의 숫자, 영문자 혼합)"
+          id="secret-key"
           value={secretKey.key}
           onChange={handleSecretKeyInput}
+          isError={!secretKey.isValid}
         />
-      </div>
-      <div className={styles.item}>
-        <label htmlFor="contentUrl">블로그 주소</label>
-        <input id="contentUrl" type="text" value={Inputs.contentUrl} onChange={handleInput} />
-      </div>
-      <div className={styles.item}>
-        <label htmlFor="body">내용</label>
-        <textarea id="body" value={Inputs.body} onChange={handleInput} />
+        <UserInputArea
+          label="블로그 주소"
+          id="contentUrl"
+          value={Inputs.contentUrl}
+          onChange={handleInput}
+        />
+        <UserInputArea label="내용" id="body" value={Inputs.body} onChange={handleInput} />
       </div>
 
-      <Button fullWidth onClick={handleSubmit}>
+      <Button type="submit" fullWidth>
         제출하기
       </Button>
-    </div>
+    </form>
   )
 }
 

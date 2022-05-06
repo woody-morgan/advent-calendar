@@ -18,6 +18,7 @@ import {
 } from './CalendarContent/CalendarContent'
 import { useRootDispatch } from '@src/hooks/useRootState'
 import { open } from '@src/store/modules/modal'
+import { motion } from 'framer-motion'
 
 const Home: FC = () => {
   const { isInit, calendarItems } = useCalendar()
@@ -25,7 +26,6 @@ const Home: FC = () => {
 
   const renderDayContents = useCallback(
     (day: Moment, modifiers: ModifiersShape) => {
-      if (!isInit) return <div />
       const result = calendarItems.get(day.format('YYYY-MM-DD'))
       if (!result && modifiers.has('valid')) {
         return (
@@ -35,7 +35,7 @@ const Home: FC = () => {
               dispatch(
                 open({
                   name: 'CALENDAR-CREATE',
-                  title: '새로운 일정 추가',
+                  title: day.format('YYYY-MM-DD'),
                   option: day,
                 })
               )
@@ -66,21 +66,25 @@ const Home: FC = () => {
   )
 
   return (
-    <PageLayout enablePageTransition>
+    <PageLayout>
       <div className="flex flex-col items-center justify-center w-full py-10 px-0">
-        <Calendar
-          initialVisibleMonth={() => moment('2022-02-01')}
-          renderDayContents={renderDayContents}
-          renderWeekHeaderElement={CustomWeekHeaderElement}
-          renderCalendarInfo={CustomCalendarInfo}
-          isDayHighlighted={(day1) =>
-            Array.from(calendarItems.keys()).some((day2) => isSameDay(day1, moment(day2)))
-          }
-          isOutsideRange={(day) =>
-            !isInclusivelyAfterDay(day, moment(process.env.REACT_APP_CALENDAR_START_DATE)) ||
-            !isInclusivelyBeforeDay(day, moment(process.env.REACT_APP_CALENDAR_END_DATE))
-          }
-        />
+        {isInit && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <Calendar
+              initialVisibleMonth={() => moment('2022-02-01')}
+              renderDayContents={renderDayContents}
+              renderWeekHeaderElement={CustomWeekHeaderElement}
+              renderCalendarInfo={CustomCalendarInfo}
+              isDayHighlighted={(day1) =>
+                Array.from(calendarItems.keys()).some((day2) => isSameDay(day1, moment(day2)))
+              }
+              isOutsideRange={(day) =>
+                !isInclusivelyAfterDay(day, moment(process.env.REACT_APP_CALENDAR_START_DATE)) ||
+                !isInclusivelyBeforeDay(day, moment(process.env.REACT_APP_CALENDAR_END_DATE))
+              }
+            />
+          </motion.div>
+        )}
       </div>
     </PageLayout>
   )

@@ -1,8 +1,6 @@
-import { useCallback, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { Button } from '@src/components/common'
-import styles from './CalendarInfoModal.module.scss'
 import { CalendarItemShape } from '@src/interface/advent-calendar'
-import classNames from 'classnames'
 import moment from 'moment'
 import { close } from '@src/store/modules/modal'
 
@@ -16,31 +14,23 @@ import { useCalendar } from '@src/store/modules/CalendarStore'
 import { isValidPwd } from '@src/utils/check'
 import { useRootDispatch } from '@src/hooks/useRootState'
 import { BaseSyntheticEvent } from '@src/interface/base'
+import UserInputArea, { UserInputWrapper } from './UserInputArea'
 
-interface IProps {
+const CalendarInfoModal: FC<{
   options: CalendarItemShape
-}
-
-interface IInputs {
-  name: string
-  title: string
-  body: string
-  contentUrl: string
-}
-
-interface ISecretKey {
-  key: string
-  isValid: boolean
-}
-
-const CalendarInfoModal = ({ options }: IProps) => {
+}> = ({ options }) => {
   const selectedDate = moment(options.openDate)
   const isAfterToday = selectedDate.isAfter(moment())
 
   const dispatch = useRootDispatch()
 
   const { updateCalendarItem, deleteCalendarItem } = useCalendar()
-  const [Inputs, setInputs] = useState<IInputs>({
+  const [Inputs, setInputs] = useState<{
+    name: string
+    title: string
+    body: string
+    contentUrl: string
+  }>({
     name: options.name ?? '',
     title: isAfterToday ? '오픈일이 아닙니다' : options.title ?? '',
     body: isAfterToday ? '오픈일이 아닙니다' : options.body ?? '',
@@ -49,7 +39,10 @@ const CalendarInfoModal = ({ options }: IProps) => {
 
   const [isEditable, setEditable] = useState<boolean>(false)
 
-  const [secretKey, setSecretKey] = useState<ISecretKey>({
+  const [secretKey, setSecretKey] = useState<{
+    key: string
+    isValid: boolean
+  }>({
     key: '',
     isValid: false,
   })
@@ -114,71 +107,47 @@ const CalendarInfoModal = ({ options }: IProps) => {
   }, [deleteCalendarItem, dispatch, options.windowSeq, selectedDate])
 
   return (
-    <div className={styles.cnt}>
-      <div className={styles.item}>{selectedDate.format('YYYY-MM-DD')}</div>
-      <div
-        className={classNames(styles.item, {
-          [styles.read_only]: true,
-        })}
-      >
-        <label htmlFor="name">작성자</label>
-        <input id="name" type="text" value={Inputs.name} onChange={handleInput} readOnly />
-        <a
-          href={'https://wiki.zeropage.org/wiki.php/' + Inputs.name}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            src="https://img.shields.io/badge/ZeroWiki-212121?style=flat-square"
-            alt="Wiki Link"
-          ></img>
-        </a>
-      </div>
-      <div
-        className={classNames(styles.item, {
-          [styles.read_only]: !isEditable,
-        })}
-      >
-        <label htmlFor="title">제목</label>
-        <input
-          id="title"
-          type="text"
-          value={Inputs.title}
-          readOnly={!isEditable}
-          onChange={handleInput}
-        />
-      </div>
+    <div className="space-y-2">
+      <UserInputArea
+        label="작성자"
+        imageLabelName={Inputs.name}
+        id="name"
+        value={Inputs.name}
+        onChange={handleInput}
+        readOnly
+      />
+      <UserInputArea
+        label="제목"
+        id="title"
+        value={Inputs.title}
+        onChange={handleInput}
+        readOnly={!isEditable}
+      />
       {isEditable && (
-        <div
-          className={classNames(styles.item, {
-            [styles.error]: !secretKey.isValid,
-          })}
-        >
-          <label htmlFor="secret-key">수정키(7~16글자의 숫자, 영문자 혼합)</label>
-          <input
-            id="secret-key"
-            type="password"
-            value={secretKey.key}
-            onChange={handleSecretKeyInput}
-          />
-        </div>
+        <UserInputArea
+          type="password"
+          label="수정키(7~16글자의 숫자, 영문자 혼합)"
+          id="secret-key"
+          value={secretKey.key}
+          onChange={handleSecretKeyInput}
+          isError={!secretKey.isValid}
+        />
       )}
-      <div
-        className={classNames(styles.item, {
-          [styles.read_only]: !isEditable,
-        })}
-      >
-        <label htmlFor="contentUrl">블로그 주소</label>
+      <UserInputWrapper label="블로그 주소" id="contentUrl">
         {!isEditable ? (
           <a
+            className="hide-text-overflow text-sm"
             href={
               isAfterToday ? 'https://woodi97.github.io/zp-advent-calendar/' : Inputs.contentUrl
             }
+            target="_blank"
+            rel="noopener noreferrer"
           >
             {Inputs.contentUrl}
           </a>
         ) : (
           <input
+            className="p-1/2 bg-transparent h-6 outline-none text-sm"
             id="contentUrl"
             type="text"
             value={Inputs.contentUrl}
@@ -186,17 +155,18 @@ const CalendarInfoModal = ({ options }: IProps) => {
             onChange={handleInput}
           />
         )}
-      </div>
-      <div
-        className={classNames(styles.item, {
-          [styles.read_only]: !isEditable,
-        })}
-      >
-        <label htmlFor="body">내용</label>
-        <textarea id="body" value={Inputs.body} readOnly={!isEditable} onChange={handleInput} />
-      </div>
+      </UserInputWrapper>
 
-      <>
+      <UserInputArea
+        label="내용"
+        id="body"
+        areaType="textarea"
+        value={Inputs.body}
+        onChange={handleInput}
+        readOnly={!isEditable}
+      />
+
+      <div className="space-y-2">
         {isEditable ? (
           <Button fullWidth onClick={handleSubmit}>
             제출하기
@@ -211,7 +181,7 @@ const CalendarInfoModal = ({ options }: IProps) => {
             </Button>
           </>
         )}
-      </>
+      </div>
     </div>
   )
 }

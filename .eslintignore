@@ -5,3 +5,4 @@ build
 .vscode
 .husky
 config-overrides.js
+src/assets

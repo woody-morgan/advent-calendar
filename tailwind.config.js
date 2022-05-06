@@ -12,27 +12,8 @@ module.exports = {
       serif: ['Merriweather', 'serif'],
     },
     extend: {
-      maxWidth: {
-        appMaxWidth: 'var(--app-max-width)',
-      },
-      height: {
-        appHeight: 'var(--app-height)',
-        appheaderHeight: 'var(--app-header-height)',
-      },
-      minHeight: {
-        appHeight: 'var(--app-height)',
-      },
-      padding: {
-        appheaderHeight: 'var(--app-header-height)',
-      },
-      margin: {
-        appheaderHeight: 'var(--app-header-height)',
-      },
-      spacing: {
-        appheaderHeight: 'var(--app-header-height)',
-      },
       colors: {
-        primary: 'var(--primary-color)',
+        primary: 'rgb(203, 216, 181))',
         secondary: '#00b1d2',
         main: '#718096',
         background: '#fff',
