@@ -1,32 +1,33 @@
-import { FC, useCallback } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import { PageLayout } from '@src/components/layout'
 import { Calendar } from '@src/components/common'
 import { Moment } from 'moment'
 import moment from 'moment'
-import {
-  isInclusivelyAfterDay,
-  isInclusivelyBeforeDay,
-  isSameDay,
-  ModifiersShape,
-} from 'react-dates'
-import { useCalendar } from '@src/store/modules/CalendarStore'
+import { isInclusivelyAfterDay, isInclusivelyBeforeDay, ModifiersShape } from 'react-dates'
 import {
   CalendarWithEmpty,
   CalendarWithFilled,
   CustomCalendarInfo,
   CustomWeekHeaderElement,
 } from './CalendarContent/CalendarContent'
-import { useRootDispatch } from '@src/hooks/useRootState'
+import { useRootDispatch, useRootState } from '@src/hooks/useRootState'
 import { open } from '@src/store/modules/modal'
 import { motion } from 'framer-motion'
+import { fetchCalendarItems } from '@src/store/modules/calendar'
 
 const Home: FC = () => {
-  const { isInit, calendarItems } = useCalendar()
+  const { isInit, calendarItems } = useRootState((state) => state.calendar)
   const dispatch = useRootDispatch()
+
+  useEffect(() => {
+    dispatch(fetchCalendarItems())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const renderDayContents = useCallback(
     (day: Moment, modifiers: ModifiersShape) => {
-      const result = calendarItems.get(day.format('YYYY-MM-DD'))
+      const parsedDay = moment(day).format('YYYY-MM-DD')
+      const result = calendarItems.find((item) => item.openDate === parsedDay)
       if (!result && modifiers.has('valid')) {
         return (
           <CalendarWithEmpty
@@ -75,9 +76,12 @@ const Home: FC = () => {
               renderDayContents={renderDayContents}
               renderWeekHeaderElement={CustomWeekHeaderElement}
               renderCalendarInfo={CustomCalendarInfo}
-              isDayHighlighted={(day1) =>
-                Array.from(calendarItems.keys()).some((day2) => isSameDay(day1, moment(day2)))
-              }
+              isDayHighlighted={(day1) => {
+                const day = moment(day1).format('YYYY-MM-DD')
+                const result = calendarItems.find((item) => item.openDate === day)
+                if (result) return true
+                return false
+              }}
               isOutsideRange={(day) =>
                 !isInclusivelyAfterDay(day, moment(process.env.REACT_APP_CALENDAR_START_DATE)) ||
                 !isInclusivelyBeforeDay(day, moment(process.env.REACT_APP_CALENDAR_END_DATE))

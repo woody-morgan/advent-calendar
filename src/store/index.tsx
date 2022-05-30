@@ -5,7 +5,10 @@ import reducer from './modules'
 
 const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(logger),
   devTools: process.env.NODE_ENV !== 'production',
 })
 

@@ -10,11 +10,11 @@ import {
   updateCalendarByID,
   deleteCalendarByID,
 } from '@src/api/advent-calendar'
-import { useCalendar } from '@src/store/modules/CalendarStore'
 import { isValidPwd } from '@src/utils/check'
 import { useRootDispatch } from '@src/hooks/useRootState'
 import { BaseSyntheticEvent } from '@src/interface/base'
 import UserInputArea, { UserInputWrapper } from './UserInputArea'
+import { deleteCalendarItem, updateCalendarItem } from '@src/store/modules/calendar'
 
 const CalendarInfoModal: FC<{
   options: CalendarItemShape
@@ -24,7 +24,6 @@ const CalendarInfoModal: FC<{
 
   const dispatch = useRootDispatch()
 
-  const { updateCalendarItem, deleteCalendarItem } = useCalendar()
   const [Inputs, setInputs] = useState<{
     name: string
     title: string
@@ -87,14 +86,18 @@ const CalendarInfoModal: FC<{
       contentUrl
     )
 
-    updateCalendarItem(selectedDate, {
-      ...options,
-      title,
-      body,
-      contentUrl,
-    })
+    dispatch(
+      updateCalendarItem({
+        item: {
+          ...options,
+          title,
+          body,
+          contentUrl,
+        },
+      })
+    )
     setEditable(false)
-  }, [Inputs, options, secretKey.key, selectedDate, updateCalendarItem])
+  }, [Inputs, dispatch, options, secretKey.key, selectedDate])
 
   const handleCalendarDelete = useCallback(async () => {
     const inputSecretKey = prompt('수정키를 입력해주세요', '')
@@ -102,9 +105,9 @@ const CalendarInfoModal: FC<{
       return
     }
     await deleteCalendarByID(options.windowSeq, inputSecretKey)
-    deleteCalendarItem(selectedDate)
+    dispatch(deleteCalendarItem({ key: selectedDate.format('YYYY-MM-DD') }))
     dispatch(close())
-  }, [deleteCalendarItem, dispatch, options.windowSeq, selectedDate])
+  }, [dispatch, options.windowSeq, selectedDate])
 
   return (
     <div className="space-y-2">
