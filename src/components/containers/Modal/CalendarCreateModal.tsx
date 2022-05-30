@@ -3,19 +3,18 @@ import { Moment } from 'moment'
 import { createCalendar } from '@src/api/advent-calendar'
 import { Button } from '@components/common'
 import { toast } from 'react-toastify'
-import { useCalendar } from '@src/store/modules/CalendarStore'
 import { isValidPwd } from '@src/utils/check'
 import { useRootDispatch } from '@src/hooks/useRootState'
 import { open, close } from '@src/store/modules/modal'
 import { BaseSyntheticEvent } from '@src/interface/base'
 import UserInputArea from './UserInputArea'
+import { addCalendarItem, fetchCalendarItems } from '@src/store/modules/calendar'
 
 const CalendarInfoModal: FC<{
   options: Moment
 }> = ({ options }) => {
   const selectedDate = options
   const dispatch = useRootDispatch()
-  const { addCalendarItem, getNewData } = useCalendar()
   const [Inputs, setInputs] = useState<{
     name: string
     title: string
@@ -63,12 +62,16 @@ const CalendarInfoModal: FC<{
         secretKey.key,
         contentUrl
       )
-      addCalendarItem(selectedDate, {
-        ...result,
-        name: result.name,
-        title: result.title,
-        contentUrl: result.contentUrl,
-      })
+      dispatch(
+        addCalendarItem({
+          item: {
+            ...result,
+            name: result.name,
+            title: result.title,
+            contentUrl: result.contentUrl,
+          },
+        })
+      )
       dispatch(
         open({
           name: 'CALENDAR-INFO',
@@ -77,7 +80,7 @@ const CalendarInfoModal: FC<{
         })
       )
     } catch (err) {
-      getNewData()
+      dispatch(fetchCalendarItems())
       dispatch(close())
     }
   }

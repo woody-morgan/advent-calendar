@@ -39,9 +39,11 @@ const ModalBase: FC<ModalBaseShape> = ({ show, title, onClose, children }) => {
                   onClose()
                 }}
               >
-                <XButton />
+                <XButton width="24" height="24" />
               </button>
-              <div className="w-full text-center text-lg font-bold">{title}</div>
+              <div className="w-4/5 mx-auto text-center items-center text-lg font-bold hide-text-overflow">
+                {title}
+              </div>
             </div>
             <div>{children}</div>
           </motion.div>

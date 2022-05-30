@@ -14,25 +14,6 @@
   }
 }
 
-:root {
-  --app-height: 100vh;
-  --app-header-height: 0px;
-  --app-max-width: 1400px;
-  --primary-color: rgb(51, 65, 85);
-  --secondary-color: #536390;
-  --font-color: #424242;
-  --bg-color: #fff;
-  --heading-color: #292922;
-}
-
-[data-theme='dark'] {
-  --primary-color: rgb(51, 65, 85);
-  --secondary-color: #818cab;
-  --font-color: #e1e1ff;
-  --bg-color: #161625;
-  --heading-color: #818cab;
-}
-
 html * {
   color: #000;
   font-size: 16px;
