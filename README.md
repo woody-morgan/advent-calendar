@@ -16,10 +16,9 @@
 
 ## Todo
 
-1. CalendarStore 코드를 Context -> RTK로 변경(비동기로 인해 AsyncThunk 사용해야함)
-2. Framer-motion의 shared layout 사용해서 UX 개선
-3. 날짜 지나면 등록 못하도록 코드 수정
-4. 캘린더 직접 제작
+1. Framer-motion의 shared layout 사용해서 UX 개선
+2. 날짜 지나면 등록 못하도록 코드 수정
+3. 캘린더 직접 제작
 
 ## 유용한 명령어
 
