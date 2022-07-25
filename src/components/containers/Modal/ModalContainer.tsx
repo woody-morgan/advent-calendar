@@ -1,11 +1,12 @@
-import React, { FC } from 'react'
-import ModalPortal from './ModalPortal'
-import ModalBase from './ModalBase'
-import { CalendarCreateModal, CalendarInfoModal } from '@components/containers'
+import { CalendarCreateModal, CalendarInfoModal } from '@src/components/containers'
+import { CalendarItemShape } from '@src/core/types/advent-calendar'
 import { useRootDispatch, useRootState } from '@src/hooks/useRootState'
 import { close, ModalType } from '@src/store/modules/modal'
 import { Moment } from 'moment'
-import { CalendarItemShape } from '@src/interface/advent-calendar'
+import React, { FC } from 'react'
+
+import ModalBase from './ModalBase'
+import ModalPortal from './ModalPortal'
 
 const ModalContainer: FC = () => {
   const modal = useRootState((state) => state.modal)

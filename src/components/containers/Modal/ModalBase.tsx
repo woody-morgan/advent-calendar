@@ -1,7 +1,7 @@
-import { FC, ReactNode } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 import { modalOverlayVariants, modalVariants } from '@src/animations/modal'
 import { ReactComponent as XButton } from '@src/assets/xButton.svg'
+import { AnimatePresence, motion } from 'framer-motion'
+import { FC, ReactNode } from 'react'
 
 interface ModalBaseShape {
   show: boolean

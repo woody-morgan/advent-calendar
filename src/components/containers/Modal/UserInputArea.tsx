@@ -1,4 +1,4 @@
-import { HorizontalLine } from '@src/components/common'
+import { HorizontalLine } from '@src/components/atom'
 import classNames from 'classnames'
 import React, { BaseSyntheticEvent, FC, memo } from 'react'
 

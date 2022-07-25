@@ -1,5 +1,5 @@
-import { BaseSyntheticEvent } from '@src/interface/base'
-import { useState, useCallback } from 'react'
+import { BaseSyntheticEvent } from '@src/core/types/base'
+import { useCallback, useState } from 'react'
 
 function useInputs(initialForm: any) {
   const [form, setForm] = useState(initialForm)
