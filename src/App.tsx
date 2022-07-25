@@ -8,7 +8,7 @@ function App() {
   const location = useLocation()
 
   return (
-    <CommonLayout headerFixed headerTransparent={false}>
+    <CommonLayout>
       <AnimatePresence
         initial={false}
         exitBeforeEnter

@@ -10,7 +10,7 @@ const FourOFourPage = () => {
         <div className="w-full h-full flex flex-col justify-center items-center space-y-4">
           <h1>404 Not Found</h1>
           <Link to="/">
-            <Button styles="link">Back to HomePage</Button>
+            <Button className="text-white">Go Back</Button>
           </Link>
         </div>
       </div>

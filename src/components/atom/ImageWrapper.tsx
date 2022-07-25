@@ -7,7 +7,8 @@ export type ImageWrapperProps = {
   width: number
   height: number
   alt?: string
-  layout?: 'fill' | 'responsive'
+  disableLazyLoad?: boolean
+  layout?: 'fill' | 'responsive' | 'intrinsic'
   objectFit?: 'contain' | 'cover'
   className?: string
 }
@@ -17,6 +18,7 @@ const Image: FC<ImageWrapperProps> = ({
   width,
   height,
   alt,
+  disableLazyLoad = false,
   layout = 'responsive',
   objectFit = 'cover',
   className,
@@ -43,10 +45,15 @@ const Image: FC<ImageWrapperProps> = ({
 
   let imgClass
 
-  if (layout === 'fill') {
-    imgClass = 'w-full h-full'
-  } else if (layout === 'responsive') {
-    imgClass = 'max-w-full h-auto'
+  switch (layout) {
+    case 'fill':
+      imgClass = 'w-full h-full'
+      break
+    case 'intrinsic':
+      break
+    case 'responsive':
+      imgClass = 'max-w-full h-auto'
+      break
   }
 
   return (
@@ -60,7 +67,7 @@ const Image: FC<ImageWrapperProps> = ({
       ref={imgRef}
       width={width}
       height={height}
-      src={isLoad ? src : placeholderSrc(width, height)}
+      src={disableLazyLoad ? src : isLoad ? src : placeholderSrc(width, height)}
       data-src={src}
       alt={alt}
     />

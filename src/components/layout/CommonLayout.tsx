@@ -1,25 +1,47 @@
+import LuneSvg from '@src/assets/svgs/lune.svg'
+import { ImageWrapper } from '@src/components/atom'
+import { getImagePath } from '@src/utils/globalUtil'
+import cx from 'classnames'
 import React, { FC, Fragment, memo } from 'react'
-
-import Header from './PageLayout/Header'
 
 const CommonLayout: FC<{
   children: React.ReactNode
-  headerTransparent: boolean
-  headerFixed: boolean
-  headerBackgroundColor?: string
-}> = ({ headerTransparent, headerFixed, headerBackgroundColor, children }) => {
+}> = ({ children }) => {
   return (
-    //  overflow hidden to prevent text on background on transition
     <div
       id="page-layout"
-      className="overflow-hidden w-full bg-primary-bg max-w-mobile-app m-center"
+      className={cx('overflow-hidden w-full m-center', 'bg-gradient-to-r from-from-bg to-to-bg')}
     >
-      <Header
-        fixed={headerFixed}
-        transparent={headerTransparent}
-        className={headerBackgroundColor}
-      />
       <Fragment>{children}</Fragment>
+      <ImageWrapper
+        disableLazyLoad
+        className={cx('w-20 h-full fixed top-4 left-[20%] -translate-x-[20%]', 'sm:w-32 sm:top-7')}
+        src={LuneSvg}
+        width={40}
+        height={40}
+      />
+      <div className="px-6 fixed top-6 left-0">
+        <ImageWrapper
+          disableLazyLoad
+          src={getImagePath('/static/bg_stars.png')}
+          width={800}
+          height={100}
+        />
+      </div>
+      <ImageWrapper
+        disableLazyLoad
+        className="w-full h-full fixed bottom-0 left-0"
+        src={getImagePath('/static/bg_trees.png')}
+        width={200}
+        height={200}
+      />
+      <ImageWrapper
+        disableLazyLoad
+        className="w-full h-full fixed bottom-0 left-0"
+        src={getImagePath('/static/bg_trees_prettier.png')}
+        width={200}
+        height={200}
+      />
     </div>
   )
 }
