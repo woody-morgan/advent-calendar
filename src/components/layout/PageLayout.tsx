@@ -27,7 +27,7 @@ const PageLayout: FC<{
   return (
     <>
       <motion.div
-        className="relative"
+        className="relative z-10"
         variants={disableTransition ? {} : pageVars}
         initial="hidden"
         animate="enter"

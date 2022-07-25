@@ -1,5 +1,4 @@
 import { modalOverlayVariants, modalVariants } from '@src/animations/modal'
-import { ReactComponent as XButton } from '@src/assets/xButton.svg'
 import { AnimatePresence, motion } from 'framer-motion'
 import { FC, ReactNode } from 'react'
 
@@ -38,9 +37,7 @@ const ModalBase: FC<ModalBaseShape> = ({ show, title, onClose, children }) => {
                 onClick={() => {
                   onClose()
                 }}
-              >
-                <XButton width="24" height="24" />
-              </button>
+              />
               <div className="w-4/5 mx-auto text-center items-center text-lg font-bold hide-text-overflow">
                 {title}
               </div>

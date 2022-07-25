@@ -1,8 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  h1 {
+    @apply text-2xl md:text-3xl font-bold font-NotoSansKorean;
+  }
+
+  h2 {
+    @apply text-xl md:text-2xl font-bold font-NotoSansKorean;
+  }
+
+  h3 {
+    @apply text-lg md:text-xl font-bold font-NotoSansKorean;
+  }
+
+  h4 {
+    @apply text-base md:text-lg font-NotoSansKorean;
+  }
+
+  h5 {
+    @apply text-sm md:text-base font-NotoSansKorean;
+  }
+
+  h6 {
+    @apply text-xs md:text-sm font-NotoSansKorean;
+  }
+
+  p {
+    @apply text-base md:text-lg font-NotoSansKorean;
+  }
+}
+
 @layer components {
+  .h1 {
+    @apply text-2xl md:text-3xl font-bold;
+  }
+
+  .h2 {
+    @apply text-xl md:text-2xl font-bold;
+  }
+
+  .h3 {
+    @apply text-lg md:text-xl font-bold;
+  }
+
+  .h4 {
+    @apply text-base md:text-lg;
+  }
+
+  .h5 {
+    @apply text-sm md:text-base;
+  }
+
+  .h6 {
+    @apply text-xs md:text-sm;
+  }
+
+  .p {
+    @apply text-base md:text-lg;
+  }
+
+  .translate-center-x {
+    top: 50%;
+    left: 0%;
+    transform: translateX(-50%);
+  }
+
+  .-translate-center-x {
+    top: 0%;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .translate-center-y {
+    top: 50%;
+    left: 0%;
+    transform: translateY(-50%);
+  }
+
+  .-translate-center-y {
+    top: 50%;
+    right: 0%;
+    transform: translateY(-50%);
+  }
+
+  .translate-center-xy {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   .hide-text-overflow {
     width: 100%;
     overflow: hidden;
@@ -12,11 +102,33 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-shadow-md {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 15px 30px rgba(0, 0, 0, 0.11), 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .text-shadow-none {
+    text-shadow: none;
+  }
+
+  .no-border-outline {
+    @apply border-none outline-none focus:border-none focus:outline-none;
+  }
+
+  .common-border-outline {
+    @apply border-[1px] border-solid border-gray-300;
+  }
 }
 
 html * {
-  color: #000;
-  font-size: 16px;
   box-sizing: border-box;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -31,4 +143,9 @@ html * ::-webkit-scrollbar {
 *:after {
   color: inherit;
   box-sizing: inherit;
+}
+
+/*tag highlight color transparent for webview component*/
+body {
+  -webkit-tap-highlight-color: transparent;
 }
