@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { getAllCalendars } from '@src/api/advent-calendar'
-import { CalendarItemShape } from '@src/interface/advent-calendar'
+import { getAllCalendars } from '@src/core/api/advent-calendar'
+import { CalendarItemShape } from '@src/core/types/advent-calendar'
 
 export type CalendarInfoShape = {
   isInit: boolean

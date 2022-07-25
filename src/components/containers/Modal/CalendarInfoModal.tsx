@@ -1,20 +1,20 @@
-import { FC, useCallback, useState } from 'react'
-import { Button } from '@src/components/common'
-import { CalendarItemShape } from '@src/interface/advent-calendar'
-import moment from 'moment'
-import { close } from '@src/store/modules/modal'
-
+import { Button } from '@src/components/atom'
 import {
-  validateSecretKey,
+  deleteCalendarByID,
   getCalendarBySecretKey,
   updateCalendarByID,
-  deleteCalendarByID,
-} from '@src/api/advent-calendar'
-import { isValidPwd } from '@src/utils/check'
+  validateSecretKey,
+} from '@src/core/api/advent-calendar'
+import { CalendarItemShape } from '@src/core/types/advent-calendar'
+import { BaseSyntheticEvent } from '@src/core/types/base'
 import { useRootDispatch } from '@src/hooks/useRootState'
-import { BaseSyntheticEvent } from '@src/interface/base'
-import UserInputArea, { UserInputWrapper } from './UserInputArea'
 import { deleteCalendarItem, updateCalendarItem } from '@src/store/modules/calendar'
+import { close } from '@src/store/modules/modal'
+import { isValidPwd } from '@src/utils/check'
+import moment from 'moment'
+import { FC, useCallback, useState } from 'react'
+
+import UserInputArea, { UserInputWrapper } from './UserInputArea'
 
 const CalendarInfoModal: FC<{
   options: CalendarItemShape

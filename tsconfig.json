@@ -17,13 +17,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["./src/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@components/*": ["./src/components/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@core/*": ["./src/core/*"],
-      "@core/api/*": ["src/api/*"]
+      "@src/*": ["./src/*"]
     }
   },
   "include": ["src", "custom.d.ts", "data"]
