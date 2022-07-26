@@ -9,12 +9,12 @@ import { CalendarItemShape } from '@src/core/types/advent-calendar'
 import { BaseSyntheticEvent } from '@src/core/types/base'
 import { useRootDispatch } from '@src/hooks/useRootState'
 import { deleteCalendarItem, updateCalendarItem } from '@src/store/modules/calendar'
-import { close } from '@src/store/modules/modal'
+import { closeModal } from '@src/store/modules/modal'
 import { isValidPwd } from '@src/utils/check'
 import moment from 'moment'
 import { FC, useCallback, useState } from 'react'
 
-import UserInputArea, { UserInputWrapper } from './UserInputArea'
+import UserInputArea, { UserInputWrapper } from '../../molecule/UserInputArea'
 
 const CalendarInfoModal: FC<{
   options: CalendarItemShape
@@ -106,7 +106,7 @@ const CalendarInfoModal: FC<{
     }
     await deleteCalendarByID(options.windowSeq, inputSecretKey)
     dispatch(deleteCalendarItem({ key: selectedDate.format('YYYY-MM-DD') }))
-    dispatch(close())
+    dispatch(closeModal())
   }, [dispatch, options.windowSeq, selectedDate])
 
   return (

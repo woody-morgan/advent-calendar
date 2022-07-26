@@ -3,12 +3,12 @@ import { createCalendar } from '@src/core/api/advent-calendar'
 import { BaseSyntheticEvent } from '@src/core/types/base'
 import { useRootDispatch } from '@src/hooks/useRootState'
 import { addCalendarItem, fetchCalendarItems } from '@src/store/modules/calendar'
-import { close, open } from '@src/store/modules/modal'
+import { closeModal } from '@src/store/modules/modal'
 import { isValidPwd } from '@src/utils/check'
 import { Moment } from 'moment'
 import { FC, FormEvent, useCallback, useState } from 'react'
 
-import UserInputArea from './UserInputArea'
+import UserInputArea from '../../molecule/UserInputArea'
 
 const CalendarInfoModal: FC<{
   options: Moment
@@ -72,16 +72,16 @@ const CalendarInfoModal: FC<{
           },
         })
       )
-      dispatch(
-        open({
-          name: 'CALENDAR-INFO',
-          title: '캘린더 정보',
-          option: result,
-        })
-      )
+      // dispatch(
+      //   openModal({
+      //     name: 'CALENDAR-INFO',
+      //     title: '캘린더 정보',
+      //     option: result,
+      //   })
+      // )
     } catch (err) {
       dispatch(fetchCalendarItems())
-      dispatch(close())
+      dispatch(closeModal())
     }
   }
 
