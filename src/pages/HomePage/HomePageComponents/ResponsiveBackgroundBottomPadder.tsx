@@ -4,15 +4,13 @@ import React from 'react'
 
 const ResponsiveBackgroundBottomPadder = () => {
   return (
-    <div className="w-full">
-      <ImageWrapper
-        className="w-full"
-        disableLazyLoad
-        src={placeholderSrc(11, 1)}
-        width={320}
-        height={609}
-      />
-    </div>
+    <ImageWrapper
+      className="w-full"
+      disableLazyLoad
+      src={placeholderSrc(11, 1)}
+      width={320}
+      height={609}
+    />
   )
 }
 

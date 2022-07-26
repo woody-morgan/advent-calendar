@@ -59,7 +59,7 @@ const Image: FC<ImageWrapperProps> = ({
   return (
     <img
       className={cx(
-        'bg-none outline-none',
+        'bg-none outline-none select-none pointer-events-none',
         imgClass,
         objectFit === 'contain' ? 'object-contain' : 'object-cover',
         className

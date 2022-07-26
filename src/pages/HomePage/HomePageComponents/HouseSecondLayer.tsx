@@ -8,7 +8,7 @@ import React from 'react'
 
 const HouseSecondLayer = () => {
   return (
-    <div className="-z-0 flex w-[500px] relative -bottom-10">
+    <div className="-z-0 flex w-[400px] relative -bottom-10">
       <button className="z-[2] w-20 h-20 relative left-16">
         <ImageWrapper className="h-20" src={house9} width={140} height={140} />
       </button>
@@ -23,9 +23,6 @@ const HouseSecondLayer = () => {
       </button>
       <button className="z-[2] w-20 h-20 relative right-4">
         <ImageWrapper className="h-20" src={house7} width={140} height={140} />
-      </button>
-      <button className="z-[1] w-20 h-20 relative -bottom-3 right-1">
-        <ImageWrapper className="h-20" src={house6} width={140} height={140} />
       </button>
     </div>
   )
