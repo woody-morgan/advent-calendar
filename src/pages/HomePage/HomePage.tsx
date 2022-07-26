@@ -9,7 +9,7 @@ import React, { FC } from 'react'
 const HomePage: FC = () => {
   return (
     <PageLayout fullWidth fixedHeight>
-      <div className="relative w-full h-full flex flex-col justify-end items-center">
+      <div className="fixed w-full h-full flex flex-col justify-end items-center">
         <HouseSecondLayer />
         <ImageWrapper
           disableLazyLoad
@@ -19,7 +19,6 @@ const HomePage: FC = () => {
           height={200}
         />
         <HouseFirstLayer />
-
         <ResponsiveBackgroundBottomPadder />
       </div>
     </PageLayout>

@@ -37,8 +37,8 @@ const PageLayout: FC<{
         <main
           ref={mainRef}
           className={cx(
-            'relative m-center w-full pt-gb-header md:pb-0',
-            fullWidth ? null : `max-w-mobile-app px-side-padding`,
+            'relative m-center w-full md:pb-0',
+            fullWidth ? null : `max-w-mobile-app`,
             fixedHeight ? 'overflow-hidden h-screen' : 'min-h-screen'
           )}
         >
