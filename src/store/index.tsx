@@ -3,8 +3,6 @@ import logger from 'redux-logger'
 
 import reducer from './modules'
 
-console.log(process.env)
-
 const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) =>
