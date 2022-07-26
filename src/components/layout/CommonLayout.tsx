@@ -1,6 +1,7 @@
 import LuneSvg from '@src/assets/svgs/lune.svg'
 import { ImageWrapper } from '@src/components/atom'
 import { getImagePath } from '@src/utils/globalUtil'
+import { backgroundClass } from '@src/utils/twUtil'
 import cx from 'classnames'
 import React, { FC, Fragment, memo } from 'react'
 
@@ -8,10 +9,7 @@ const CommonLayout: FC<{
   children: React.ReactNode
 }> = ({ children }) => {
   return (
-    <div
-      id="page-layout"
-      className={cx('overflow-hidden w-full m-center', 'bg-gradient-to-r from-from-bg to-to-bg')}
-    >
+    <div id="page-layout" className={cx('overflow-hidden w-full m-center', backgroundClass)}>
       <Fragment>{children}</Fragment>
       <ImageWrapper
         disableLazyLoad
@@ -35,6 +33,7 @@ const CommonLayout: FC<{
         width={200}
         height={200}
       />
+
       <ImageWrapper
         disableLazyLoad
         className="w-full h-full fixed bottom-0 left-0"

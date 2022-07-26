@@ -1,27 +1,27 @@
+import { ImageWrapper } from '@src/components/atom'
 import { PageLayout } from '@src/components/layout'
-import { FC } from 'react'
+import HouseFirstLayer from '@src/pages/HomePage/HomePageComponents/HouseFirstLayer'
+import HouseSecondLayer from '@src/pages/HomePage/HomePageComponents/HouseSecondLayer'
+import ResponsiveBackgroundBottomPadder from '@src/pages/HomePage/HomePageComponents/ResponsiveBackgroundBottomPadder'
+import { getImagePath } from '@src/utils/globalUtil'
+import React, { FC } from 'react'
 
 const HomePage: FC = () => {
   return (
-    <PageLayout fixedHeight>
-      {/*<div className="flex">*/}
-      {/*  {Array(5)*/}
-      {/*    .fill(0)*/}
-      {/*    .map((_, i) => {*/}
-      {/*      return (*/}
-      {/*        <ImageWrapper key={`first-layer-house-${i}`} src={house1} width={50} height={50} />*/}
-      {/*      )*/}
-      {/*    })}*/}
-      {/*</div>*/}
-      {/*<div className="flex">*/}
-      {/*  {Array(5)*/}
-      {/*    .fill(0)*/}
-      {/*    .map((_, i) => {*/}
-      {/*      return (*/}
-      {/*        <ImageWrapper key={`second-layer-house-${i}`} src={house1} width={50} height={50} />*/}
-      {/*      )*/}
-      {/*    })}*/}
-      {/*</div>*/}
+    <PageLayout fullWidth fixedHeight>
+      <div className="relative w-full h-full flex flex-col justify-end items-center">
+        <HouseSecondLayer />
+        <ImageWrapper
+          disableLazyLoad
+          className="w-full h-full fixed left-0 bottom-11"
+          src={getImagePath('/static/bg_snow_hill.png')}
+          width={200}
+          height={200}
+        />
+        <HouseFirstLayer />
+
+        <ResponsiveBackgroundBottomPadder />
+      </div>
     </PageLayout>
   )
 }

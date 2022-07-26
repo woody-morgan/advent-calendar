@@ -1,1 +1,1 @@
-export { default as InputBox } from './InputBox/InputBox'
+export { default as HouseBox } from './HouseBox/HouseBox'
