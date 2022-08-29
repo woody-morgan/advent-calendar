@@ -1,7 +1,5 @@
-export type commonSizes = 'large' | 'medium' | 'small' | 'xsmall'
-export type btnSizes = commonSizes
-export type inputBoxSizes = commonSizes
-export type selectBoxSizes = commonSizes
+// for button component
+export type btnSizes = 'large' | 'medium' | 'small' | 'xsmall'
 
 export type btnStyles =
   | 'primary'

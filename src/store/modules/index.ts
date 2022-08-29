@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
 import auth from './auth'
-import calendar from './calendar'
 import modal from './modal'
+import calendar from './calendar'
 
 const reducer = combineReducers<{
   auth: ReturnType<typeof auth>
