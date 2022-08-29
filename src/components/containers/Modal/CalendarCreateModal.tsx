@@ -1,14 +1,14 @@
-import { Button } from '@src/components/atom'
-import { createCalendar } from '@src/core/api/advent-calendar'
-import { BaseSyntheticEvent } from '@src/core/types/base'
-import { useRootDispatch } from '@src/hooks/useRootState'
-import { addCalendarItem, fetchCalendarItems } from '@src/store/modules/calendar'
-import { closeModal } from '@src/store/modules/modal'
-import { isValidPwd } from '@src/utils/check'
-import { Moment } from 'moment'
 import { FC, FormEvent, useCallback, useState } from 'react'
-
-import UserInputArea from '../../molecule/UserInputArea'
+import { Moment } from 'moment'
+import { createCalendar } from '@src/api/advent-calendar'
+import { Button } from '@components/common'
+import { toast } from 'react-toastify'
+import { isValidPwd } from '@src/utils/check'
+import { useRootDispatch } from '@src/hooks/useRootState'
+import { open, close } from '@src/store/modules/modal'
+import { BaseSyntheticEvent } from '@src/interface/base'
+import UserInputArea from './UserInputArea'
+import { addCalendarItem, fetchCalendarItems } from '@src/store/modules/calendar'
 
 const CalendarInfoModal: FC<{
   options: Moment
@@ -49,7 +49,7 @@ const CalendarInfoModal: FC<{
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!secretKey.isValid) {
-      alert('수정키는 7~16글자의 숫자,영문자 혼합이어야합니다')
+      toast.error('수정키는 7~16글자의 숫자,영문자 혼합이어야합니다')
       return
     }
     const { name, title, body, contentUrl } = Inputs
@@ -72,16 +72,16 @@ const CalendarInfoModal: FC<{
           },
         })
       )
-      // dispatch(
-      //   openModal({
-      //     name: 'CALENDAR-INFO',
-      //     title: '캘린더 정보',
-      //     option: result,
-      //   })
-      // )
+      dispatch(
+        open({
+          name: 'CALENDAR-INFO',
+          title: '캘린더 정보',
+          option: result,
+        })
+      )
     } catch (err) {
       dispatch(fetchCalendarItems())
-      dispatch(closeModal())
+      dispatch(close())
     }
   }
 

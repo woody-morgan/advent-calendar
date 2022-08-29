@@ -1,0 +1,26 @@
+$base-font: 'Roboto';
+$base-color: rgb(203, 216, 181);
+$sub-color: rgb(113, 114, 71);
+$font-black: #444444;
+$font-black-solid: #000000;
+$font-white: #ffffff;
+$font-link: #00b1d2;
+$black: #444444;
+$border: #dddddd;
+$footer-background: gray;
+$input-error: red;
+
+$header-padding: 20px;
+
+$header-logo-height: 36px;
+$header-font-height: 10px;
+$header-height-mobile: 40px;
+$header-height: $header-padding * 2 + $header-logo-height;
+
+$breakpoint-desktop: 768px;
+$breakpoint-laptop: 1400px;
+$highlight: rgba(255, 217, 81, 0.6);
+$content-max-width: 1400px;
+$gap-between-home-items: 15px;
+
+$border-radius: 0px;
