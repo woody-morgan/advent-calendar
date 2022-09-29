@@ -1,4 +1,4 @@
-import { CalendarItemShape } from '@src/interface/advent-calendar'
+import { CalendarItemShape } from '@src/core/interface/advent-calendar'
 import type { Moment } from 'moment'
 import moment from 'moment'
 

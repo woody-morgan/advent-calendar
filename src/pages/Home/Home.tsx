@@ -1,8 +1,7 @@
 import { FC, useCallback, useEffect } from 'react'
 import { PageLayout } from '@src/components/layout'
 import { Calendar } from '@src/components/common'
-import { Moment } from 'moment'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 import { isInclusivelyAfterDay, isInclusivelyBeforeDay, ModifiersShape } from 'react-dates'
 import {
   CalendarWithEmpty,
@@ -21,7 +20,6 @@ const Home: FC = () => {
 
   useEffect(() => {
     dispatch(fetchCalendarItems())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const renderDayContents = useCallback(

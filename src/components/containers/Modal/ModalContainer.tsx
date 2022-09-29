@@ -5,7 +5,7 @@ import { CalendarCreateModal, CalendarInfoModal } from '@components/containers'
 import { useRootDispatch, useRootState } from '@src/hooks/useRootState'
 import { close, ModalType } from '@src/store/modules/modal'
 import { Moment } from 'moment'
-import { CalendarItemShape } from '@src/interface/advent-calendar'
+import { CalendarItemShape } from '@src/core/interface/advent-calendar'
 
 const ModalContainer: FC = () => {
   const modal = useRootState((state) => state.modal)

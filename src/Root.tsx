@@ -1,8 +1,8 @@
 import { BrowserRouter as Router } from 'react-router-dom'
-import App from '@src/shared/App'
+import App from '@src/App'
 
 import { ToastContainer } from 'react-toastify'
-import { ModalContainer } from '@src/components/containers'
+import { ModalContainer } from '@components/containers'
 import { Provider } from 'react-redux'
 import store from '@src/store'
 
