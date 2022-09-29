@@ -25,7 +25,7 @@ const Home: FC = () => {
   const renderDayContents = useCallback(
     (day: Moment, modifiers: ModifiersShape) => {
       const parsedDay = moment(day).format('YYYY-MM-DD')
-      const result = calendarItems.find((item) => item.openDate === parsedDay)
+      const result = calendarItems.get(parsedDay)
       if (!result && modifiers.has('valid')) {
         return (
           <CalendarWithEmpty
@@ -76,7 +76,7 @@ const Home: FC = () => {
               renderCalendarInfo={CustomCalendarInfo}
               isDayHighlighted={(day1) => {
                 const day = moment(day1).format('YYYY-MM-DD')
-                const result = calendarItems.find((item) => item.openDate === day)
+                const result = calendarItems.get(day)
                 if (result) return true
                 return false
               }}
