@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import Root from './client/Root'
+import Root from './Root'
 import qs from 'query-string'
 
 import reportWebVitals from './reportWebVitals'
