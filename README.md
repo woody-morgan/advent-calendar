@@ -14,6 +14,10 @@
 4. cp .env.example .env.local 후 Key 채워넣기
 ```
 
+## 배운것
+
+1. Redux의 Immutability Map에 대한 내부 구현은 src/hooks/useImmutableMap.ts에 있습니다.
+
 ## Todo
 
 1. Framer-motion의 shared layout 사용해서 UX 개선

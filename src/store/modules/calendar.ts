@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { getAllCalendars } from '@src/core/api/advent-calendar'
 import { CalendarItemShape } from '@src/core/interface/advent-calendar'
+import moment from 'moment'
 
 export type CalendarInfoShape = {
   isInit: boolean
-  calendarItems: CalendarItemShape[]
+  calendarItems: Map<string, CalendarItemShape>
 }
 
 const initialState: CalendarInfoShape = {
   isInit: false,
-  calendarItems: [],
+  calendarItems: new Map(),
 }
 
 export const fetchCalendarItems = createAsyncThunk('calendar/fetchCalendarItems', async () => {
@@ -28,7 +29,7 @@ const calendarReducer = createSlice({
       }>
     ) => {
       const { item } = action.payload
-      state.calendarItems.push(item)
+      state.calendarItems.set(moment(item.openDate).format('YYYY-MM-DD'), item)
     },
     updateCalendarItem: (
       state,
@@ -37,12 +38,7 @@ const calendarReducer = createSlice({
       }>
     ) => {
       const { item } = action.payload
-      const index = state.calendarItems.findIndex(
-        (calendarItem) => calendarItem.openDate === item.openDate
-      )
-      if (index !== -1) {
-        state.calendarItems[index] = item
-      }
+      state.calendarItems.set(moment(item.openDate).format('YYYY-MM-DD'), item)
     },
     deleteCalendarItem: (
       state,
@@ -51,15 +47,16 @@ const calendarReducer = createSlice({
       }>
     ) => {
       const { key } = action.payload
-      const index = state.calendarItems.findIndex((calendarItem) => calendarItem.openDate === key)
-      if (index !== -1) {
-        state.calendarItems.splice(index, 1)
-      }
+      state.calendarItems.delete(key)
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCalendarItems.fulfilled, (state, action) => {
-      state.calendarItems = action.payload
+      const newMap = new Map()
+      action.payload.forEach((item) => {
+        newMap.set(moment(item.openDate).format('YYYY-MM-DD'), item)
+      })
+      state.calendarItems = newMap
       state.isInit = true
     })
     builder.addCase(fetchCalendarItems.rejected, (state) => {
